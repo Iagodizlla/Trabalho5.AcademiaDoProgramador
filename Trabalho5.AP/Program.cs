@@ -17,7 +17,7 @@ public class Program
         RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
 
         TelaAmigo telaAmigo = new TelaAmigo(repositorioAmigo);
-        //TelaCaixa telaCaixa = new TelaCaixa(repositorioCaixa);
+        TelaCaixa telaCaixa = new TelaCaixa(repositorioCaixa);
         TelaRevista telaRevista = new TelaRevista(repositorioRevista);
         //TelaEmprestimo telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista);
         bool continuar = true;
@@ -45,16 +45,16 @@ public class Program
             {
                 while (continuar)
                 {
-                    //char opcao = menu.MostrarMenuCaixa();
-                    //switch (opcao)
-                    //{
-                    //    case '1': telaCaixa.CadastrarAmigo(); break;
+                    char opcao = menu.MostrarMenuCaixa();
+                    switch (opcao)
+                    {
+                        case '1': telaCaixa.CadastrarAmigo(); break;
                     //    case '2': telaCaixa.RemoverCaixa(); break;
-                    //    case '3': telaCaixa.ListarCaixas(); break;
+                        case '3': telaCaixa.ListarCaixas(); break;
                     //    case '4': telaCaixa.EditarCaixa(); break;
-                    //    case 'S':  continuar = false; break;
-                    //    default: Console.WriteLine("Opção inválida."); Console.ReadLine(); break;
-                    //}
+                        case 'S':  continuar = false; break;
+                        default: Console.WriteLine("Opção inválida."); Console.ReadLine(); break;
+                    }
                 }
             }
             else if (opcaoP == '3')

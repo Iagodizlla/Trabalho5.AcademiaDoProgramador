@@ -10,12 +10,21 @@ namespace Trabalho5.AP.ModuloCaixa
 {
     public class RepositorioCaixa
     {
-        //public Caixa[] caixas = new Caixa[100];
-        //public int contadorCaixas = 0;
-        //public void AdicionarCaixa(Caixa caixa)
-        //{
-        //    caixa.Id = GeradorId.GerarIdCaixa();
-        //    caixas[contadorCaixas++] = caixa;
-        //}
+        public Caixa[] caixas = new Caixa[100];
+        public int contadorCaixas = 0;
+        public void AdicionarCaixa(Caixa caixa)
+        {
+            caixa.Id = GeradorId.GerarIdCaixa();
+            caixas[contadorCaixas++] = caixa;
+        }
+        public Caixa[] ListarCaixas()
+        {
+            Caixa[] caixasAtuais = new Caixa[contadorCaixas];
+            for (int i = 0; i < contadorCaixas; i++)
+            {
+                caixasAtuais[i] = caixas[i];
+            }
+            return caixasAtuais;
+        }
     }
 }

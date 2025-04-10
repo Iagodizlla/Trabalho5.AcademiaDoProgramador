@@ -13,7 +13,7 @@ namespace Trabalho5.AP.Compartilhado
             Console.Clear();
             Console.WriteLine("Menu Principal");
             Console.WriteLine("1. Geranciar Amigos");
-            Console.WriteLine("2. Em desenvolvimento...");
+            Console.WriteLine("2. Gerenciar Caixas");
             Console.WriteLine("3. Gerenciar Revistas");
             Console.WriteLine("4. Em desenvolvimento...");
             Console.WriteLine("S. Sair");
