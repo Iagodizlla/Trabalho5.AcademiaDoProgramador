@@ -26,7 +26,7 @@ public class TelaRevista
         int numeroEdicao = Convert.ToInt32(Console.ReadLine()!);
         Console.Write("Ano de publicacao: ");
         DateTime anoPublicacao = Convert.ToDateTime(Console.ReadLine()!);
-        //ListarRevistas();
+        //ListarCaixas();
         //Console.Write("Id da Caixa: ");
         //int id = Convert.ToInt16(Console.ReadLine()!);
 
@@ -51,6 +51,9 @@ public class TelaRevista
             int numeroEdicao = Convert.ToInt32(Console.ReadLine()!);
             Console.Write("Ano de publicacao: ");
             DateTime anoPublicacao = Convert.ToDateTime(Console.ReadLine()!);
+            //ListarCaixas();
+            //Console.Write("Id da Caixa: ");
+            //int id = Convert.ToInt16(Console.ReadLine()!);
 
             repositorioRevista.EditarRevista(revista, titulo, statusEmprestimo/*, caixa*/, numeroEdicao, anoPublicacao);
             Console.WriteLine("Revista editado com sucesso!");
@@ -85,15 +88,15 @@ public class TelaRevista
         Console.WriteLine("-----------------");
         Revista[] revistas = repositorioRevista.ListarRevistas();
         Console.WriteLine(
-            "{0, -6} | {1, -20} | {2, -20} | {3, -20} | {4, -20}",
-            "ID", "titulo", "Status", "Numero Edicao", "Ano Publicacao"
+            "{0, -6} | {1, -20} | {2, -20} | {3, -20} | {4, -20}"/* | {5, -20}*/,
+            "ID", "titulo", "Status", "Numero Edicao", "Ano Publicacao"/*, "Caixa"*/
             );
         for (int i = 0; i < revistas.Length; i++)
         {
             if (revistas[i] == null) continue;
             Console.WriteLine(
-                "{0, -6} | {1, -20} | {2, -20} | {3, -20} | {4, -20}",
-                revistas[i].Id, revistas[i].Titulo, revistas[i].StatusEmprestimo, revistas[i].NumeroEdicao, revistas[i].AnoPublicacao
+                "{0, -6} | {1, -20} | {2, -20} | {3, -20} | {4, -20}"/* | {5, -20}*/,
+                revistas[i].Id, revistas[i].Titulo, revistas[i].StatusEmprestimo, revistas[i].NumeroEdicao, revistas[i].AnoPublicacao/*, revistas[i].Caixa.NomeCaixa*/
             );
         }
         Console.ReadLine();

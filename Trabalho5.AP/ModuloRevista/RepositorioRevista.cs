@@ -48,7 +48,7 @@ public class RepositorioRevista
         }
         return revistasAtuais;
     }
-    public void EditarRevista(Revista revista, string novoTitulo, string novoStatusEmprestimo, int novoNumeroEdicao, DateTime novoAnoPublicacao)
+    public void EditarRevista(Revista revista, string novoTitulo, string novoStatusEmprestimo, int novoNumeroEdicao, DateTime novoAnoPublicacao/*, Caixa novoCaixa*/)
     {
         for (int i = 0; i < contadorRevistas; i++)
         {
@@ -58,6 +58,7 @@ public class RepositorioRevista
                 revistas[i].StatusEmprestimo = novoStatusEmprestimo;
                 revistas[i].NumeroEdicao = novoNumeroEdicao;
                 revistas[i].AnoPublicacao = novoAnoPublicacao;
+                //revistas[i].Caixa = novoCaixa;
                 break;
             }
         }
