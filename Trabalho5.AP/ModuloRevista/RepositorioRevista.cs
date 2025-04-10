@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Trabalho5.AP.Compartilhado;
 using Trabalho5.AP.ModuloAmigo;
+using Trabalho5.AP.ModuloCaixa;
 
 namespace Trabalho5.AP.ModuloRevista;
 
@@ -49,7 +50,7 @@ public class RepositorioRevista
         }
         return revistasAtuais;
     }
-    public void EditarRevista(Revista revista, string novoTitulo, string novoStatusEmprestimo, int novoNumeroEdicao, DateTime novoAnoPublicacao/*, Caixa novoCaixa*/)
+    public void EditarRevista(Revista revista, string novoTitulo, string novoStatusEmprestimo, Caixa novoCaixa, int novoNumeroEdicao, DateTime novoAnoPublicacao)
     {
         for (int i = 0; i < contadorRevistas; i++)
         {
@@ -59,7 +60,7 @@ public class RepositorioRevista
                 revistas[i].StatusEmprestimo = novoStatusEmprestimo;
                 revistas[i].NumeroEdicao = novoNumeroEdicao;
                 revistas[i].AnoPublicacao = novoAnoPublicacao;
-                //revistas[i].Caixa = novoCaixa;
+                revistas[i].Caixa = novoCaixa;
                 break;
             }
         }

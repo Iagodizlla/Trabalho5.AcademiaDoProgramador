@@ -18,7 +18,7 @@ public class Program
 
         TelaAmigo telaAmigo = new TelaAmigo(repositorioAmigo);
         TelaCaixa telaCaixa = new TelaCaixa(repositorioCaixa);
-        TelaRevista telaRevista = new TelaRevista(repositorioRevista);
+        TelaRevista telaRevista = new TelaRevista(repositorioRevista, repositorioCaixa);
         TelaEmprestimo telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista);
         bool continuar = true;
         while (true)

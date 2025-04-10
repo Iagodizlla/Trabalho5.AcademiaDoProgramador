@@ -12,14 +12,14 @@ public class Revista
     public int Id { get; set; }
     public string Titulo { get; set; }
     public string StatusEmprestimo { get; set; }
-    //public Caixa Caixa { get; set; }
+    public Caixa Caixa { get; set; }
     public int NumeroEdicao { get; set; }
     public DateTime AnoPublicacao { get; set; }
-    public Revista(string titulo, string statusEmprestimo/*, Caixa caixa*/, int numeroEdicao, DateTime anoPublicacao)
+    public Revista(string titulo, string statusEmprestimo, Caixa caixa, int numeroEdicao, DateTime anoPublicacao)
     {
         Titulo = titulo;
         StatusEmprestimo = statusEmprestimo;
-        //Caixa = caixa;
+        Caixa = caixa;
         NumeroEdicao = numeroEdicao;
         AnoPublicacao = anoPublicacao;
     }
