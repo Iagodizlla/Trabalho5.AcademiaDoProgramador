@@ -8,5 +8,8 @@ namespace Trabalho5.AP.ModuloCaixa
 {
     internal class Caixa
     {
+        public string Etiqueta { get; set; }
+        public ConsoleColor Cor { get; set; }
+        public DateTime DiasDeEmprestimo { get; set; }
     }
 }
