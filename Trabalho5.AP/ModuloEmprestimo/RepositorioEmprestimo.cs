@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Trabalho5.AP.Compartilhado;
 using Trabalho5.AP.ModuloAmigo;
+using Trabalho5.AP.ModuloRevista;
 
 namespace Trabalho5.AP.ModuloEmprestimo;
 
@@ -27,13 +28,15 @@ public class RepositorioEmprestimo
         }
         return emprestimosAtuais;
     }
-    public void RemoverEmprestimo(Emprestimo emprestimo)
+    public void EditarEmprestimo(Emprestimo emprestimo, Amigo novoAmigo, Revista novoRevista, string novoSituacao)
     {
         for (int i = 0; i < contadorEmprestimos; i++)
         {
             if (emprestimos[i] == emprestimo)
             {
-                emprestimos[i] = null!;
+                emprestimos[i].Amigo = novoAmigo;
+                emprestimos[i].Revista = novoRevista;
+                emprestimos[i].Situacao = novoSituacao;
                 break;
             }
         }
@@ -48,5 +51,16 @@ public class RepositorioEmprestimo
             }
         }
         return null!;
+    }
+    public void RemoverEmprestimo(Emprestimo emprestimo)
+    {
+        for (int i = 0; i < contadorEmprestimos; i++)
+        {
+            if (emprestimos[i] == emprestimo)
+            {
+                emprestimos[i] = null!;
+                break;
+            }
+        }
     }
 }

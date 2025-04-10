@@ -79,6 +79,38 @@ public class TelaEmprestimo
             Console.WriteLine("Emprestimo não encontrado.");
         }
     }
+    public void EditarEmprestimo()
+    {
+        Console.Clear();
+        Console.WriteLine("Editar Emprestimo");
+
+        ListarEmprestimos();
+        Console.Write("ID: ");
+        int id = Convert.ToInt16(Console.ReadLine()!);
+        Emprestimo emprestimo = repositorioEmprestimo.BuscarEmprestimo(id);
+        if (emprestimo != null)
+        {
+            ListarAmigos();
+            Console.Write("ID: ");
+            int idA = Convert.ToInt16(Console.ReadLine()!);
+            Amigo novoamigo = repositorioAmigo.BuscarAmigo(idA);
+
+            Console.Write("Situacao: ");
+            string novosituacao = Console.ReadLine()!;
+
+            ListarRevistas();
+            Console.Write("ID: ");
+            int idR = Convert.ToInt16(Console.ReadLine()!);
+            Revista novorevista = repositorioRevista.BuscarRevista(idR, novosituacao);
+
+            repositorioEmprestimo.EditarEmprestimo(emprestimo, novoamigo, novorevista, novosituacao);
+            Console.WriteLine("Emprestimo editado com sucesso!");
+        }
+        else
+        {
+            Console.WriteLine("Emprestimo não encontrado.");
+        }
+    }
     public void ListarAmigos()
     {
         Console.Clear();

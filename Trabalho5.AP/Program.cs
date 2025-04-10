@@ -81,9 +81,9 @@ public class Program
                     switch (opcao)
                     {
                         case '1': telaEmprestimo.CadastrarEmprestimo(); break;
-                        //case '2': telaEmprestimo.RemoverEmprestimo(); break;
+                        case '2': telaEmprestimo.RemoverEmprestimo(); break;
                         case '3': telaEmprestimo.ListarEmprestimos(); break;
-                        //case '4': telaEmprestimo.EditarEmprestimo(); break;
+                        case '4': telaEmprestimo.EditarEmprestimo(); break;
                         case 'S': continuar = false; break;
                         default: Console.WriteLine("Opção inválida."); Console.ReadLine(); break;
                     }
