@@ -11,7 +11,6 @@ public class RepositorioAmigo
         amigo.Id = GeradorId.GerarIdAmigo();
         amigos[contadorAmigos++] = amigo;
     }
-    
     public void RemoverAmigo(Amigo amigo)
     {
         for (int i = 0; i < contadorAmigos; i++)

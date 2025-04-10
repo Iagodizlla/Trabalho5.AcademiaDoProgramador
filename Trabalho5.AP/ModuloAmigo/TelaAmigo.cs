@@ -9,7 +9,7 @@ public class TelaAmigo
     {
         this.repositorioAmigo = repositorioAmigo;
     }
-    public void Inserir()
+    public void CadastrarAmigo()
     {
         Console.Clear();
         Console.WriteLine("Adicionar Amigo");
@@ -45,6 +45,7 @@ public class TelaAmigo
     {
         Console.Clear();
         Console.WriteLine("Lista de Amigos");
+        Console.WriteLine("-----------------");
         Amigo[] amigos = repositorioAmigo.ListarAmigos();
         Console.WriteLine(
             "{0, -6} | {1, -20} | {2, -20} | {3, -20}",

@@ -3,10 +3,99 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Trabalho5.AP.ModuloAmigo;
 
-namespace Trabalho5.AP.ModuloRevista
+namespace Trabalho5.AP.ModuloRevista;
+
+public class TelaRevista
 {
-    internal class TelaRevista
+    RepositorioRevista repositorioRevista;
+    public TelaRevista(RepositorioRevista repositorioRevista)
     {
+        this.repositorioRevista = repositorioRevista;
+    }
+    public void CadastrarRevista()
+    {
+        Console.Clear();
+        Console.WriteLine("Cadastro de Revista");
+        Console.Write("Titulo: ");
+        string titulo = Console.ReadLine()!;
+        Console.Write("Status do emprestimo: ");
+        string statusEmprestimo = Console.ReadLine()!;
+        Console.Write("Numero de edicao: ");
+        int numeroEdicao = Convert.ToInt32(Console.ReadLine()!);
+        Console.Write("Ano de publicacao: ");
+        DateTime anoPublicacao = Convert.ToDateTime(Console.ReadLine()!);
+        //ListarRevistas();
+        //Console.Write("Id da Caixa: ");
+        //int id = Convert.ToInt16(Console.ReadLine()!);
+
+        Revista revista = new Revista(titulo, statusEmprestimo/*, caixa*/, numeroEdicao, anoPublicacao);
+        repositorioRevista.AdicionarRevista(revista);
+    }
+    public void EditarRevista()
+    {
+        Console.Clear();
+        Console.WriteLine("Editar Revista");
+        ListarRevistas();
+        Console.Write("ID: ");
+        int id = Convert.ToInt16(Console.ReadLine()!);
+        Revista revista = repositorioRevista.BuscarRevista(id);
+        if (revista != null)
+        {
+            Console.Write("Titulo: ");
+            string titulo = Console.ReadLine()!;
+            Console.Write("Status do emprestimo: ");
+            string statusEmprestimo = Console.ReadLine()!;
+            Console.Write("Numero de edicao: ");
+            int numeroEdicao = Convert.ToInt32(Console.ReadLine()!);
+            Console.Write("Ano de publicacao: ");
+            DateTime anoPublicacao = Convert.ToDateTime(Console.ReadLine()!);
+
+            repositorioRevista.EditarRevista(revista, titulo, statusEmprestimo/*, caixa*/, numeroEdicao, anoPublicacao);
+            Console.WriteLine("Revista editado com sucesso!");
+        }
+        else
+        {
+            Console.WriteLine("Revista não encontrado.");
+        }
+    }
+    public void RemoverRevista()
+    {
+        Console.Clear();
+        Console.WriteLine("Remover Revista");
+        ListarRevistas();
+        Console.Write("ID: ");
+        int id = Convert.ToInt16(Console.ReadLine()!);
+        Revista revista = repositorioRevista.BuscarRevista(id);
+        if (revista != null)
+        {
+            repositorioRevista.RemoverRevista(revista);
+            Console.WriteLine("Revista removido com sucesso!");
+        }
+        else
+        {
+            Console.WriteLine("Revista não encontrado.");
+        }
+    }
+    public void ListarRevistas()
+    {
+        Console.Clear();
+        Console.WriteLine("Lista de Revistas");
+        Console.WriteLine("-----------------");
+        Revista[] revistas = repositorioRevista.ListarRevistas();
+        Console.WriteLine(
+            "{0, -6} | {1, -20} | {2, -20} | {3, -20} | {4, -20}",
+            "ID", "titulo", "Status", "Numero Edicao", "Ano Publicacao"
+            );
+        for (int i = 0; i < revistas.Length; i++)
+        {
+            if (revistas[i] == null) continue;
+            Console.WriteLine(
+                "{0, -6} | {1, -20} | {2, -20} | {3, -20} | {4, -20}",
+                revistas[i].Id, revistas[i].Titulo, revistas[i].StatusEmprestimo, revistas[i].NumeroEdicao, revistas[i].AnoPublicacao
+            );
+        }
+        Console.ReadLine();
     }
 }

@@ -18,7 +18,7 @@ public class Program
 
         TelaAmigo telaAmigo = new TelaAmigo(repositorioAmigo);
         //TelaCaixa telaCaixa = new TelaCaixa(repositorioCaixa);
-        //TelaRevista telaRevista = new TelaRevista(repositorioRevista);
+        TelaRevista telaRevista = new TelaRevista(repositorioRevista);
         //TelaEmprestimo telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista);
         bool continuar = true;
         while (true)
@@ -32,7 +32,7 @@ public class Program
                     char opcao = menu.MostrarMenuAmigo();
                     switch (opcao)
                     {
-                        case '1': telaAmigo.Inserir(); break;
+                        case '1': telaAmigo.CadastrarAmigo(); break;
                         case '2': telaAmigo.RemoverAmigo(); break;
                         case '3': telaAmigo.ListarAmigos(); break;
                         case '4': telaAmigo.EditarAmigo(); break;
@@ -45,16 +45,32 @@ public class Program
             {
                 while (continuar)
                 {
-                    char opcao = menu.MostrarMenuCaixa();
+                    //char opcao = menu.MostrarMenuCaixa();
                     //switch (opcao)
                     //{
-                    //    case '1': telaCaixa.Inserir(); break;
+                    //    case '1': telaCaixa.CadastrarAmigo(); break;
                     //    case '2': telaCaixa.RemoverCaixa(); break;
                     //    case '3': telaCaixa.ListarCaixas(); break;
                     //    case '4': telaCaixa.EditarCaixa(); break;
                     //    case 'S':  continuar = false; break;
                     //    default: Console.WriteLine("Opção inválida."); Console.ReadLine(); break;
                     //}
+                }
+            }
+            else if (opcaoP == '3')
+            {
+                while (continuar)
+                {
+                    char opcao = menu.MostrarMenuRevista();
+                    switch (opcao)
+                    {
+                        case '1': telaRevista.CadastrarRevista(); break;
+                        case '2': telaRevista.RemoverRevista(); break;
+                        case '3': telaRevista.ListarRevistas(); break;
+                        case '4': telaRevista.EditarRevista(); break;
+                        case 'S': continuar = false; break;
+                        default: Console.WriteLine("Opção inválida."); Console.ReadLine(); break;
+                    }
                 }
             }
             else if (opcaoP == 'S')

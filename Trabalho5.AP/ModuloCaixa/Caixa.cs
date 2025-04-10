@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Trabalho5.AP.ModuloCaixa
 {
-    internal class Caixa
+    public class Caixa
     {
         public string Etiqueta { get; set; }
         public ConsoleColor Cor { get; set; }
