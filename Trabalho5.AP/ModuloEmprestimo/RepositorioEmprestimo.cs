@@ -8,5 +8,6 @@ namespace Trabalho5.AP.ModuloEmprestimo
 {
     internal class RepositorioEmprestimo
     {
+        public Emprestimo[] emprestimos = new Emprestimo[100];
     }
 }

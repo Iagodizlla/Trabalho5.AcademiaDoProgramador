@@ -8,5 +8,6 @@ namespace Trabalho5.AP.ModuloRevista
 {
     internal class RepositorioRevista
     {
+        public Revista[] revistas = new Revista[100];
     }
 }

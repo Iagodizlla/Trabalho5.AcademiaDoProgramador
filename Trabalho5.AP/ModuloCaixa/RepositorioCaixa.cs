@@ -8,5 +8,6 @@ namespace Trabalho5.AP.ModuloCaixa
 {
     internal class RepositorioCaixa
     {
+        public Caixa[] caixas = new Caixa[100];
     }
 }
