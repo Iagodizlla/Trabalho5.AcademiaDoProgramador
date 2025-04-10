@@ -43,4 +43,47 @@ public class TelaCaixa
         }
         Console.ReadLine();
     }
+    public void RemoverCaixa()
+    {
+        Console.Clear();
+        Console.WriteLine("Remover Caixa");
+        ListarCaixas();
+        Console.Write("ID: ");
+        int id = Convert.ToInt16(Console.ReadLine()!);
+        Caixa caixa = repositorioCaixa.BuscarCaixa(id);
+        if (caixa != null)
+        {
+            repositorioCaixa.RemoverCaixa(caixa);
+            Console.WriteLine("Caixa removido com sucesso!");
+        }
+        else
+        {
+            Console.WriteLine("Caixa não encontrado.");
+        }
+    }
+    public void EditarCaixa()
+    {
+        Console.Clear();
+        Console.WriteLine("Editar Caixa");
+        ListarCaixas();
+        Console.Write("ID: ");
+        int id = Convert.ToInt16(Console.ReadLine()!);
+        Caixa caixa = repositorioCaixa.BuscarCaixa(id);
+        if (caixa != null)
+        {
+            Console.Write("Etiqueta: ");
+            string novoEtiqueta = Console.ReadLine()!;
+            //Console.Write("Cor: ");
+            //ConsoleColor cor = Convert.ToConsoleColor(Console.ReadLine()!);
+            Console.Write("Dias de emprestimo: ");
+            DateTime novoDiasDeEmprestimo = Convert.ToDateTime(Console.ReadLine()!);
+
+            repositorioCaixa.EditarCaixa(caixa, novoEtiqueta/* novoCor*/, novoDiasDeEmprestimo);
+            Console.WriteLine("Caixa editado com sucesso!");
+        }
+        else
+        {
+            Console.WriteLine("Caixa não encontrado.");
+        }
+    }
 }

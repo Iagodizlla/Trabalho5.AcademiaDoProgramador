@@ -49,9 +49,9 @@ public class Program
                     switch (opcao)
                     {
                         case '1': telaCaixa.CadastrarAmigo(); break;
-                    //    case '2': telaCaixa.RemoverCaixa(); break;
+                        case '2': telaCaixa.RemoverCaixa(); break;
                         case '3': telaCaixa.ListarCaixas(); break;
-                    //    case '4': telaCaixa.EditarCaixa(); break;
+                        case '4': telaCaixa.EditarCaixa(); break;
                         case 'S':  continuar = false; break;
                         default: Console.WriteLine("Opção inválida."); Console.ReadLine(); break;
                     }

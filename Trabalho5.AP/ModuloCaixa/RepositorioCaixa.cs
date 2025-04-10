@@ -26,5 +26,40 @@ namespace Trabalho5.AP.ModuloCaixa
             }
             return caixasAtuais;
         }
+        public void RemoverCaixa(Caixa caixa)
+        {
+            for (int i = 0; i < contadorCaixas; i++)
+            {
+                if (caixas[i] == caixa)
+                {
+                    caixas[i] = null!;
+                    break;
+                }
+            }
+        }
+        public Caixa BuscarCaixa(int id)
+        {
+            for (int i = 0; i < contadorCaixas; i++)
+            {
+                if (caixas[i].Id == id)
+                {
+                    return caixas[i];
+                }
+            }
+            return null!;
+        }
+        public void EditarCaixa(Caixa caixa, string novoEtiqueta,/* novoCor,*/ DateTime novoDiasDeEmprestimo)
+        {
+            for (int i = 0; i < contadorCaixas; i++)
+            {
+                if (caixas[i] == caixa)
+                {
+                    caixas[i].Etiqueta = novoEtiqueta;
+                    //caixas[i].Cor = novoCor;
+                    caixas[i].DiasDeEmprestimo = novoDiasDeEmprestimo;
+                    break;
+                }
+            }
+        }
     }
 }

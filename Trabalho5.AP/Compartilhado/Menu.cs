@@ -15,7 +15,7 @@ namespace Trabalho5.AP.Compartilhado
             Console.WriteLine("1. Geranciar Amigos");
             Console.WriteLine("2. Gerenciar Caixas");
             Console.WriteLine("3. Gerenciar Revistas");
-            Console.WriteLine("4. Em desenvolvimento...");
+            Console.WriteLine("4. Gerenciar Emprestimos");
             Console.WriteLine("S. Sair");
             Console.Write("Escolha uma opção: ");
 
