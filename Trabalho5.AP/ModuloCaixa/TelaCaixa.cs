@@ -18,7 +18,7 @@ public class TelaCaixa
         Console.Write("Cor: ");
         string cor = Console.ReadLine()!;
         Console.Write("Dias de emprestimo: ");
-        DateTime diasDeEmprestimo = Convert.ToDateTime(Console.ReadLine()!);
+        int diasDeEmprestimo = Convert.ToInt16(Console.ReadLine()!);
 
         Caixa caixa = new Caixa(etiqueta, cor, diasDeEmprestimo);
         repositorioCaixa.AdicionarCaixa(caixa);
@@ -76,7 +76,7 @@ public class TelaCaixa
             Console.Write("Cor: ");
             string novoCor = Console.ReadLine()!;
             Console.Write("Dias de emprestimo: ");
-            DateTime novoDiasDeEmprestimo = Convert.ToDateTime(Console.ReadLine()!);
+            int novoDiasDeEmprestimo = Convert.ToInt16(Console.ReadLine()!);
 
             repositorioCaixa.EditarCaixa(caixa, novoEtiqueta, novoCor, novoDiasDeEmprestimo);
             Console.WriteLine("Caixa editado com sucesso!");

@@ -11,8 +11,8 @@ namespace Trabalho5.AP.ModuloCaixa
         public int Id { get; set; }
         public string Etiqueta { get; set; }
         public string Cor { get; set; }
-        public DateTime DiasDeEmprestimo { get; set; }
-        public Caixa(string etiqueta, string cor, DateTime diasDeEmprestimo)
+        public int DiasDeEmprestimo { get; set; }
+        public Caixa(string etiqueta, string cor, int diasDeEmprestimo)
         {
             Etiqueta = etiqueta;
             Cor = cor;
