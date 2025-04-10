@@ -28,12 +28,13 @@ public class RepositorioRevista
             }
         }
     }
-    public Revista BuscarRevista(int id)
+    public Revista BuscarRevista(int id, string situacao)
     {
         for (int i = 0; i < contadorRevistas; i++)
         {
             if (revistas[i].Id == id)
             {
+                revistas[i].StatusEmprestimo = situacao;
                 return revistas[i];
             }
         }

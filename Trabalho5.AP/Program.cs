@@ -19,7 +19,7 @@ public class Program
         TelaAmigo telaAmigo = new TelaAmigo(repositorioAmigo);
         TelaCaixa telaCaixa = new TelaCaixa(repositorioCaixa);
         TelaRevista telaRevista = new TelaRevista(repositorioRevista);
-        //TelaEmprestimo telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista);
+        TelaEmprestimo telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista);
         bool continuar = true;
         while (true)
         {
@@ -73,6 +73,22 @@ public class Program
                     }
                 }
             }
+            else if (opcaoP == '4')
+            {
+                while (continuar)
+                {
+                    char opcao = menu.MostrarMenuRevista();
+                    switch (opcao)
+                    {
+                        case '1': telaEmprestimo.CadastrarEmprestimo(); break;
+                        //case '2': telaEmprestimo.RemoverEmprestimo(); break;
+                        case '3': telaEmprestimo.ListarEmprestimos(); break;
+                        //case '4': telaEmprestimo.EditarEmprestimo(); break;
+                        case 'S': continuar = false; break;
+                        default: Console.WriteLine("Opção inválida."); Console.ReadLine(); break;
+                    }
+                }
+            }
             else if (opcaoP == 'S')
             {
                 break;
@@ -80,9 +96,8 @@ public class Program
             else
             {
                 Console.WriteLine("Opção inválida.");
+                Console.ReadKey();
             }
-            Console.WriteLine("Pressione qualquer tecla para continuar...");
-            Console.ReadKey();
         }
     }
 }

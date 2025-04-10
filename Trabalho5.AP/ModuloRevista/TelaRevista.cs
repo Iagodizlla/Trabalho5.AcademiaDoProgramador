@@ -37,16 +37,18 @@ public class TelaRevista
     {
         Console.Clear();
         Console.WriteLine("Editar Revista");
+
+        Console.Write("Status do emprestimo: ");
+        string statusEmprestimo = Console.ReadLine()!;
+
         ListarRevistas();
         Console.Write("ID: ");
         int id = Convert.ToInt16(Console.ReadLine()!);
-        Revista revista = repositorioRevista.BuscarRevista(id);
+        Revista revista = repositorioRevista.BuscarRevista(id, statusEmprestimo);
         if (revista != null)
         {
             Console.Write("Titulo: ");
             string titulo = Console.ReadLine()!;
-            Console.Write("Status do emprestimo: ");
-            string statusEmprestimo = Console.ReadLine()!;
             Console.Write("Numero de edicao: ");
             int numeroEdicao = Convert.ToInt32(Console.ReadLine()!);
             Console.Write("Ano de publicacao: ");
@@ -70,7 +72,7 @@ public class TelaRevista
         ListarRevistas();
         Console.Write("ID: ");
         int id = Convert.ToInt16(Console.ReadLine()!);
-        Revista revista = repositorioRevista.BuscarRevista(id);
+        Revista revista = repositorioRevista.BuscarRevista(id, "");
         if (revista != null)
         {
             repositorioRevista.RemoverRevista(revista);

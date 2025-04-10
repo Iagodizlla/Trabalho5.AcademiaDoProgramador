@@ -10,12 +10,12 @@ namespace Trabalho5.AP.ModuloCaixa
     {
         public int Id { get; set; }
         public string Etiqueta { get; set; }
-        //public ConsoleColor Cor { get; set; }
+        public string Cor { get; set; }
         public DateTime DiasDeEmprestimo { get; set; }
-        public Caixa(string etiqueta/*, ConsoleColor cor*/, DateTime diasDeEmprestimo)
+        public Caixa(string etiqueta, string cor, DateTime diasDeEmprestimo)
         {
             Etiqueta = etiqueta;
-            //Cor = cor;
+            Cor = cor;
             DiasDeEmprestimo = diasDeEmprestimo;
         }
     }

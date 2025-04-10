@@ -48,7 +48,7 @@ namespace Trabalho5.AP.ModuloCaixa
             }
             return null!;
         }
-        public void EditarCaixa(Caixa caixa, string novoEtiqueta,/* novoCor,*/ DateTime novoDiasDeEmprestimo)
+        public void EditarCaixa(Caixa caixa, string novoEtiqueta, string novoCor, DateTime novoDiasDeEmprestimo)
         {
             for (int i = 0; i < contadorCaixas; i++)
             {

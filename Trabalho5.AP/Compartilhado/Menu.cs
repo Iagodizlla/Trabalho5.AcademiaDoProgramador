@@ -66,5 +66,19 @@ namespace Trabalho5.AP.Compartilhado
             char opcao = Console.ReadLine()!.ToUpper()[0];
             return opcao;
         }
+        public char MostrarMenuEmprestimo()
+        {
+            Console.Clear();
+            Console.WriteLine("Menu de Emprestimos");
+            Console.WriteLine("1. Adicionar Emprestimo");
+            Console.WriteLine("2. Remover Emprestimo");
+            Console.WriteLine("3. Listar Emprestimo");
+            Console.WriteLine("4. Editar Emprestimo");
+            Console.WriteLine("S. Voltar");
+            Console.Write("Escolha uma opção: ");
+
+            char opcao = Console.ReadLine()!.ToUpper()[0];
+            return opcao;
+        }
     }
 }
