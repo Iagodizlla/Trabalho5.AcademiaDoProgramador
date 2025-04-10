@@ -9,21 +9,6 @@ public class TelaAmigo
     {
         this.repositorioAmigo = repositorioAmigo;
     }
-
-    public char MostrarMenu()
-    {
-        Console.Clear();
-        Console.WriteLine("Menu de Amigos");
-        Console.WriteLine("1. Adicionar Amigo");
-        Console.WriteLine("2. Remover Amigo");
-        Console.WriteLine("3. Listar Amigos");
-        Console.WriteLine("4. Editar Amigo");
-        Console.WriteLine("S. Voltar");
-        Console.Write("Escolha uma opção: ");
-
-        char opcao = Console.ReadLine()!.ToUpper()[0];
-        return opcao;
-    }
     public void Inserir()
     {
         Console.Clear();
@@ -73,6 +58,7 @@ public class TelaAmigo
                 amigos[i].Id, amigos[i].Nome, amigos[i].Telefone, amigos[i].Responsavel
             );
         }
+        Console.ReadLine();
     }
     public void EditarAmigo()
     {

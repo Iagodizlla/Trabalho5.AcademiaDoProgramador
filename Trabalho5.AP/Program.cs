@@ -2,13 +2,15 @@
 using Trabalho5.AP.ModuloCaixa;
 using Trabalho5.AP.ModuloEmprestimo;
 using Trabalho5.AP.ModuloRevista;
+using Trabalho5.AP.Compartilhado;
 
 namespace Trabalho5.AP;
 
-class Program
+public class Program
 {
     static void Main(string[] args)
     {
+        Menu menu = new Menu();
         RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
         RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
         RepositorioRevista repositorioRevista = new RepositorioRevista();
@@ -18,23 +20,53 @@ class Program
         //TelaCaixa telaCaixa = new TelaCaixa(repositorioCaixa);
         //TelaRevista telaRevista = new TelaRevista(repositorioRevista);
         //TelaEmprestimo telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista);
-
+        bool continuar = true;
         while (true)
         {
-            #region Amigo
-            char opcao = telaAmigo.MostrarMenu();
-            switch (opcao)
+            continuar = true;
+            char opcaoP = menu.MostrarMenuPrincipal();
+            if (opcaoP == '1')
             {
-                case '1': telaAmigo.Inserir(); break;
-                case '2': telaAmigo.RemoverAmigo(); break;
-                case '3': telaAmigo.ListarAmigos(); break;
-                case '4': telaAmigo.EditarAmigo(); break;
-                case 'S': return;
-                default: Console.WriteLine("Opção inválida.");Console.ReadLine(); break;
+                while (continuar)
+                {
+                    char opcao = menu.MostrarMenuAmigo();
+                    switch (opcao)
+                    {
+                        case '1': telaAmigo.Inserir(); break;
+                        case '2': telaAmigo.RemoverAmigo(); break;
+                        case '3': telaAmigo.ListarAmigos(); break;
+                        case '4': telaAmigo.EditarAmigo(); break;
+                        case 'S': continuar = false; break;
+                        default: Console.WriteLine("Opção inválida."); Console.ReadLine(); break;
+                    }
+                }
+            }
+            else if (opcaoP == '2')
+            {
+                while (continuar)
+                {
+                    char opcao = menu.MostrarMenuCaixa();
+                    //switch (opcao)
+                    //{
+                    //    case '1': telaCaixa.Inserir(); break;
+                    //    case '2': telaCaixa.RemoverCaixa(); break;
+                    //    case '3': telaCaixa.ListarCaixas(); break;
+                    //    case '4': telaCaixa.EditarCaixa(); break;
+                    //    case 'S':  continuar = false; break;
+                    //    default: Console.WriteLine("Opção inválida."); Console.ReadLine(); break;
+                    //}
+                }
+            }
+            else if (opcaoP == 'S')
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Opção inválida.");
             }
             Console.WriteLine("Pressione qualquer tecla para continuar...");
             Console.ReadKey();
-            #endregion
         }
     }
 }
