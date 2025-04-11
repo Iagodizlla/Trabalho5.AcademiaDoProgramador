@@ -20,7 +20,16 @@ public class TelaAmigo
         Console.Write("Responsável: ");
         string responsavel = Console.ReadLine()!;
 
-        Amigo amigo = new Amigo(nome, telefone, responsavel);
+        Amigo amigo = new Amigo(nome, telefone, responsavel); 
+        string erros = amigo.Validar();
+        if (erros.Length > 0)
+        {
+            Console.WriteLine(erros);
+
+            CadastrarAmigo();
+
+            return;
+        }
         repositorioAmigo.AdicionarAmigo(amigo);
     }
     public void RemoverAmigo()

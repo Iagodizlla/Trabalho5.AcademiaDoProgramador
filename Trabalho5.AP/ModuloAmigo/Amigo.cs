@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,5 +19,20 @@ public class Amigo
         Nome = nome;
         Telefone = telefone;
         Responsavel = responsavel;
+    }
+    public string Validar()
+    {
+        string erros = "";
+
+        if (Nome.Length < 3)
+            erros += "O campo 'Nome' precisa conter ao menos 3 caracteres.\n";
+
+        if (Responsavel.Length < 3)
+            erros += "O campo 'Responsavel' precisa conter ao menos 3 caracteres.\n";
+
+        if (Telefone.Length < 12)
+            erros += "O campo 'Telefone' deve seguir o formato 00 0000-0000.";
+
+        return erros;
     }
 }
