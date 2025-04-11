@@ -29,7 +29,6 @@ public class TelaEmprestimo
         Console.Write("ID: ");
         int idA = Convert.ToInt16(Console.ReadLine()!);
         Amigo amigo = repositorioAmigo.BuscarAmigo(idA);
-
         Console.WriteLine("Lista de Emprestimos");
         Console.WriteLine("-----------------");
         Emprestimo[] emprestimo = repositorioEmprestimo.ListarEmprestimos();
@@ -47,8 +46,6 @@ public class TelaEmprestimo
             );
         }
         Console.ReadLine();
-
-
     }
     public void CadastrarEmprestimo()
     {
@@ -78,6 +75,7 @@ public class TelaEmprestimo
             return;
         }
         repositorioEmprestimo.AdicionarEmprestimo(emprestimo);
+        amigo.AdicionarEmprestimo(emprestimo);
     }
     public void ListarEmprestimos()
     {
@@ -118,6 +116,8 @@ public class TelaEmprestimo
         Console.Write("ID: ");
         int id = Convert.ToInt16(Console.ReadLine()!);
         Emprestimo emprestimo = repositorioEmprestimo.BuscarEmprestimo(id);
+        Amigo amigo1 = emprestimo.Amigo;
+        amigo1.RemoverEmprestimo(emprestimo);
         if (emprestimo != null)
         {
             repositorioEmprestimo.RemoverEmprestimo(emprestimo);
@@ -159,13 +159,15 @@ public class TelaEmprestimo
         Console.Write("ID: ");
         int id = Convert.ToInt16(Console.ReadLine()!);
         Emprestimo emprestimo = repositorioEmprestimo.BuscarEmprestimo(id);
-
+        Amigo amigo1 = emprestimo.Amigo;
+        amigo1.RemoverEmprestimo(emprestimo);
         if (emprestimo != null)
         {
             ListarAmigos();
             Console.Write("ID: ");
             int idA = Convert.ToInt16(Console.ReadLine()!);
             Amigo novoamigo = repositorioAmigo.BuscarAmigo(idA);
+            novoamigo.AdicionarEmprestimo(emprestimo);
 
             string novosituacao = repositorioRevista.EditarSituacao();
 

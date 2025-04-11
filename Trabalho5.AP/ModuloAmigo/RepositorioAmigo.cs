@@ -55,4 +55,20 @@ public class RepositorioAmigo
             }
         }
     }
+    public string ValidarAmigo(string nome, string telefone)
+    {
+        for (int i = 0; i < contadorAmigos; i++)
+        {
+            if (amigos[i].Nome == nome)
+            {
+                return "Nome de Amigo já cadastrado.\n";
+            }
+            if (amigos[i].Telefone == telefone)
+            {
+                return "Telefone de Amigo já cadastrado.\n";
+                
+            }
+        }
+        return "";
+    }
 }
