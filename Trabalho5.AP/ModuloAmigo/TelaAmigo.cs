@@ -40,6 +40,7 @@ public class TelaAmigo
         {
             Console.WriteLine("Amigo não encontrado.");
         }
+        Console.ReadLine();
     }
     public void ListarAmigos()
     {
@@ -85,5 +86,6 @@ public class TelaAmigo
         {
             Console.WriteLine("Amigo não encontrado.");
         }
+        Console.ReadLine();
     }
 }

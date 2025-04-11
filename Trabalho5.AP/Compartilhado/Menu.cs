@@ -74,6 +74,7 @@ namespace Trabalho5.AP.Compartilhado
             Console.WriteLine("2. Remover Emprestimo");
             Console.WriteLine("3. Listar Emprestimo");
             Console.WriteLine("4. Editar Emprestimo");
+            Console.WriteLine("5. Registrar Devolucao");
             Console.WriteLine("S. Voltar");
             Console.Write("Escolha uma opção: ");
 

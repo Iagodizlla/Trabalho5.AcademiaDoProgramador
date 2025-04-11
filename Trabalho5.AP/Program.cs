@@ -77,13 +77,14 @@ public class Program
             {
                 while (continuar)
                 {
-                    char opcao = menu.MostrarMenuRevista();
+                    char opcao = menu.MostrarMenuEmprestimo();
                     switch (opcao)
                     {
                         case '1': telaEmprestimo.CadastrarEmprestimo(); break;
                         case '2': telaEmprestimo.RemoverEmprestimo(); break;
                         case '3': telaEmprestimo.ListarEmprestimos(); break;
                         case '4': telaEmprestimo.EditarEmprestimo(); break;
+                        case '5': telaEmprestimo.RegistrarDevolucao(); break;
                         case 'S': continuar = false; break;
                         default: Console.WriteLine("Opção inválida."); Console.ReadLine(); break;
                     }

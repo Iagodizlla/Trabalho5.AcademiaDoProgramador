@@ -23,7 +23,7 @@ public class TelaRevista
         Console.WriteLine("Cadastro de Revista");
         Console.Write("Titulo: ");
         string titulo = Console.ReadLine()!;
-        Console.Write("Status do emprestimo: ");
+        Console.Write("Status do emprestimo(Disponível / Emprestada / Reservada): ");
         string statusEmprestimo = Console.ReadLine()!;
         Console.Write("Numero de edicao: ");
         int numeroEdicao = Convert.ToInt32(Console.ReadLine()!);
@@ -63,7 +63,7 @@ public class TelaRevista
         Console.Clear();
         Console.WriteLine("Editar Revista");
 
-        Console.Write("Status do emprestimo: ");
+        Console.Write("Status do emprestimo(Disponível / Emprestada / Reservada): ");
         string statusEmprestimo = Console.ReadLine()!;
 
         ListarRevistas();
@@ -91,6 +91,7 @@ public class TelaRevista
         {
             Console.WriteLine("Revista não encontrado.");
         }
+        Console.ReadLine();
     }
     public void RemoverRevista()
     {
@@ -109,6 +110,7 @@ public class TelaRevista
         {
             Console.WriteLine("Revista não encontrado.");
         }
+        Console.ReadLine();
     }
     public void ListarRevistas()
     {

@@ -78,6 +78,28 @@ public class TelaEmprestimo
         {
             Console.WriteLine("Emprestimo não encontrado.");
         }
+        Console.ReadLine();
+    }
+    public void RegistrarDevolucao()
+    {
+        Console.Clear();
+        Console.WriteLine("Registrar Devolucao");
+
+        ListarEmprestimos();
+        Console.Write("ID: ");
+        int id = Convert.ToInt16(Console.ReadLine()!);
+        Emprestimo emprestimo = repositorioEmprestimo.BuscarEmprestimo(id);
+        if (emprestimo != null)
+        {
+            emprestimo.Situacao = "Devolvido";
+            emprestimo.Revista.StatusEmprestimo = "Disponivel";
+            Console.WriteLine("Devolução registrada com sucesso!");
+        }
+        else
+        {
+            Console.WriteLine("Emprestimo não encontrado.");
+        }
+        Console.ReadLine();
     }
     public void EditarEmprestimo()
     {
@@ -110,6 +132,7 @@ public class TelaEmprestimo
         {
             Console.WriteLine("Emprestimo não encontrado.");
         }
+        Console.ReadLine();
     }
     public void ListarAmigos()
     {

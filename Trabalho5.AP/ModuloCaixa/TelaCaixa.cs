@@ -60,6 +60,7 @@ public class TelaCaixa
         {
             Console.WriteLine("Caixa não encontrado.");
         }
+        Console.ReadLine();
     }
     public void EditarCaixa()
     {
@@ -85,5 +86,6 @@ public class TelaCaixa
         {
             Console.WriteLine("Caixa não encontrado.");
         }
+        Console.ReadLine();
     }
 }
