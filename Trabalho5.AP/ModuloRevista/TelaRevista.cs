@@ -39,6 +39,15 @@ public class TelaRevista
         Caixa caixa = repositorioCaixa.BuscarCaixa(id);
 
         Revista revista = new Revista(titulo, statusEmprestimo, caixa, numeroEdicao, anoPublicacao);
+        string erros = revista.Validar();
+        if (erros.Length > 0)
+        {
+            Console.WriteLine(erros);
+
+            CadastrarRevista();
+            
+            return;
+        }
         repositorioRevista.AdicionarRevista(revista);
         caixa.AdicionarRevista(revista);
     }
