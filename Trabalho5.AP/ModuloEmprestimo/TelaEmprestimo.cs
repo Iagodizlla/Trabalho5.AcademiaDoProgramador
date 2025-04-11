@@ -30,8 +30,7 @@ public class TelaEmprestimo
         int idA = Convert.ToInt16(Console.ReadLine()!);
         Amigo amigo = repositorioAmigo.BuscarAmigo(idA);
 
-        Console.Write("Situacao: ");
-        string situacao = Console.ReadLine()!;
+        string situacao = repositorioRevista.EditarSituacao();
 
         ListarRevistas();
         Console.Write("ID: ");
@@ -44,6 +43,16 @@ public class TelaEmprestimo
     public void ListarEmprestimos()
     {
         Console.Clear();
+        string situacaoescolhida;
+        Console.WriteLine("1. Disponível\n2. Emprestada\n3. Reservada");
+        char opcao = Console.ReadLine()!.ToUpper()[0];
+        switch (opcao)
+        {
+            case '1': situacaoescolhida = "Disponível"; break;
+            case '2': situacaoescolhida = "Emprestada"; break;
+            case '3': situacaoescolhida = "Reservada"; break;
+            default: situacaoescolhida = "Disponível"; break;
+        }
         Console.WriteLine("Lista de Emprestimos");
         Console.WriteLine("-----------------");
         Emprestimo[] emprestimo = repositorioEmprestimo.ListarEmprestimos();
@@ -54,6 +63,7 @@ public class TelaEmprestimo
         for (int i = 0; i < emprestimo.Length; i++)
         {
             if (emprestimo[i] == null) continue;
+            if(emprestimo[i].Situacao != situacaoescolhida) continue;
             Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -20} | {3, -15}",
                 emprestimo[i].Id, emprestimo[i].Amigo.Nome, emprestimo[i].Revista.Titulo, emprestimo[i].Situacao
@@ -91,8 +101,8 @@ public class TelaEmprestimo
         Emprestimo emprestimo = repositorioEmprestimo.BuscarEmprestimo(id);
         if (emprestimo != null)
         {
-            emprestimo.Situacao = "Devolvido";
-            emprestimo.Revista.StatusEmprestimo = "Disponivel";
+            emprestimo.Situacao = "Disponível";
+            emprestimo.Revista.StatusEmprestimo = "Disponível";
             Console.WriteLine("Devolução registrada com sucesso!");
         }
         else
@@ -110,6 +120,7 @@ public class TelaEmprestimo
         Console.Write("ID: ");
         int id = Convert.ToInt16(Console.ReadLine()!);
         Emprestimo emprestimo = repositorioEmprestimo.BuscarEmprestimo(id);
+
         if (emprestimo != null)
         {
             ListarAmigos();
@@ -117,8 +128,7 @@ public class TelaEmprestimo
             int idA = Convert.ToInt16(Console.ReadLine()!);
             Amigo novoamigo = repositorioAmigo.BuscarAmigo(idA);
 
-            Console.Write("Situacao: ");
-            string novosituacao = Console.ReadLine()!;
+            string novosituacao = repositorioRevista.EditarSituacao();
 
             ListarRevistas();
             Console.Write("ID: ");
@@ -161,15 +171,15 @@ public class TelaEmprestimo
         Console.WriteLine("-----------------");
         Revista[] revistas = repositorioRevista.ListarRevistas();
         Console.WriteLine(
-            "{0, -6} | {1, -20} | {2, -20} | {3, -20} | {4, -20}"/* | {5, -20}*/,
-            "ID", "titulo", "Status", "Numero Edicao", "Ano Publicacao"/*, "Caixa"*/
+            "{0, -6} | {1, -20} | {2, -15} | {3, -15} | {4, -20} | {5, -20}",
+            "ID", "titulo", "Status", "Numero Edicao", "Ano Publicacao", "Etiqueta Caixa"
             );
         for (int i = 0; i < revistas.Length; i++)
         {
             if (revistas[i] == null) continue;
             Console.WriteLine(
-                "{0, -6} | {1, -20} | {2, -20} | {3, -20} | {4, -20}"/* | {5, -20}*/,
-                revistas[i].Id, revistas[i].Titulo, revistas[i].StatusEmprestimo, revistas[i].NumeroEdicao, revistas[i].AnoPublicacao/*, revistas[i].Caixa.NomeCaixa*/
+                "{0, -6} | {1, -20} | {2, -15} | {3, -15} | {4, -20} | {5, -20}",
+                revistas[i].Id, revistas[i].Titulo, revistas[i].StatusEmprestimo, revistas[i].NumeroEdicao, revistas[i].AnoPublicacao, revistas[i].Caixa.Etiqueta
             );
         }
         Console.ReadLine();
