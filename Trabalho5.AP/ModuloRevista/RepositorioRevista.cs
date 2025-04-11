@@ -71,7 +71,7 @@ public class RepositorioRevista
         while (true)
         {
             Console.Clear();
-            Console.WriteLine("Situacao:\n1. Disponível\n2. Emprestada\n3. Reservada");
+            Console.Write("\n1. Disponível\n2. Emprestada\n3. Reservada\nSituacao: ");
             novosituacao = Console.ReadLine()!;
             if (novosituacao == "1")
             {

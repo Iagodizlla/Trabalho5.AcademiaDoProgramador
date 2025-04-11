@@ -44,14 +44,14 @@ public class TelaEmprestimo
     {
         Console.Clear();
         string situacaoescolhida;
-        Console.WriteLine("1. Disponível\n2. Emprestada\n3. Reservada");
+        Console.WriteLine("1. Disponível\n2. Emprestada\n3. Reservada\n4. Geral");
         char opcao = Console.ReadLine()!.ToUpper()[0];
         switch (opcao)
         {
             case '1': situacaoescolhida = "Disponível"; break;
             case '2': situacaoescolhida = "Emprestada"; break;
             case '3': situacaoescolhida = "Reservada"; break;
-            default: situacaoescolhida = "Disponível"; break;
+            default: situacaoescolhida = "Geral"; break;
         }
         Console.WriteLine("Lista de Emprestimos");
         Console.WriteLine("-----------------");
@@ -63,7 +63,7 @@ public class TelaEmprestimo
         for (int i = 0; i < emprestimo.Length; i++)
         {
             if (emprestimo[i] == null) continue;
-            if(emprestimo[i].Situacao != situacaoescolhida) continue;
+            if (emprestimo[i].Situacao != situacaoescolhida && situacaoescolhida != "Geral") continue;
             Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -20} | {3, -15}",
                 emprestimo[i].Id, emprestimo[i].Amigo.Nome, emprestimo[i].Revista.Titulo, emprestimo[i].Situacao
