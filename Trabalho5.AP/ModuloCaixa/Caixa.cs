@@ -62,8 +62,8 @@ namespace Trabalho5.AP.ModuloCaixa
             if (Cor.Length < 3)
                 erros += "O campo 'Cor' precisa conter ao menos 3 caracteres.\n";
 
-            if (Etiqueta.Length < 5)
-                erros += "O campo 'Etiqueta' precisa conter ao menos 5 caracteres.\n";
+            if (Etiqueta.Length > 50)
+                erros += "O campo 'Etiqueta' precisa conter ao maximo 50 caracteres.\n";
 
             if (DiasDeEmprestimo > 0 )
                 erros += "O campo 'Dias de Emprestimo' deve ser positivo.";

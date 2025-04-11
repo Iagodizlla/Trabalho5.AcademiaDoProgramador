@@ -60,6 +60,12 @@ public class TelaCaixa
         Console.Write("ID: ");
         int id = Convert.ToInt16(Console.ReadLine()!);
         Caixa caixa = repositorioCaixa.BuscarCaixa(id);
+        if(caixa.Revistas.Length > 0)
+        {
+            Console.WriteLine("Caixa não pode ser removido, pois possui revistas.");
+            Console.ReadLine();
+            return;
+        }
         if (caixa != null)
         {
             repositorioCaixa.RemoverCaixa(caixa);
