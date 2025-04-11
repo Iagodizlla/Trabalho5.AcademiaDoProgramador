@@ -57,7 +57,7 @@ public class TelaEmprestimo
         int idA = Convert.ToInt16(Console.ReadLine()!);
         Amigo amigo = repositorioAmigo.BuscarAmigo(idA);
 
-        string situacao = repositorioRevista.EditarSituacao();
+        string situacao = repositorioEmprestimo.EditarSituacao();
 
         ListarRevistas();
         Console.Write("ID: ");
@@ -65,6 +65,12 @@ public class TelaEmprestimo
         Revista revista = repositorioRevista.BuscarRevista(idR, situacao);
 
         Emprestimo emprestimo = new Emprestimo(amigo, revista/*, data*/, situacao);
+        if (repositorioEmprestimo.QuantidadeEmprestimosAmigo(amigo) >= 1)
+        {
+            Console.WriteLine("Amigo já possui 1 emprestimo ativo.");
+            Console.ReadLine();
+            return;
+        }
         string erros = emprestimo.Validar();
         if (erros.Length > 0)
         {
@@ -81,13 +87,13 @@ public class TelaEmprestimo
     {
         Console.Clear();
         string situacaoescolhida;
-        Console.WriteLine("1. Disponível\n2. Emprestada\n3. Reservada\n4. Geral");
+        Console.WriteLine("1. Aberto\n2. Concluído\n3. Atrasado\n4. Geral");
         char opcao = Console.ReadLine()!.ToUpper()[0];
         switch (opcao)
         {
-            case '1': situacaoescolhida = "Disponível"; break;
-            case '2': situacaoescolhida = "Emprestada"; break;
-            case '3': situacaoescolhida = "Reservada"; break;
+            case '1': situacaoescolhida = "Aberto"; break;
+            case '2': situacaoescolhida = "Concluído"; break;
+            case '3': situacaoescolhida = "Atrasado"; break;
             default: situacaoescolhida = "Geral"; break;
         }
         Console.WriteLine("Lista de Emprestimos");
@@ -140,7 +146,7 @@ public class TelaEmprestimo
         Emprestimo emprestimo = repositorioEmprestimo.BuscarEmprestimo(id);
         if (emprestimo != null)
         {
-            emprestimo.Situacao = "Disponível";
+            emprestimo.Situacao = "Concluído";
             emprestimo.Revista.StatusEmprestimo = "Disponível";
             Console.WriteLine("Devolução registrada com sucesso!");
         }
@@ -169,7 +175,7 @@ public class TelaEmprestimo
             Amigo novoamigo = repositorioAmigo.BuscarAmigo(idA);
             novoamigo.AdicionarEmprestimo(emprestimo);
 
-            string novosituacao = repositorioRevista.EditarSituacao();
+            string novosituacao = repositorioEmprestimo.EditarSituacao();
 
             ListarRevistas();
             Console.Write("ID: ");

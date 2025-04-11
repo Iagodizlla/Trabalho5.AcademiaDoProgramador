@@ -46,6 +46,17 @@ public class Amigo
             }
         }
     }
+    public int ObterQuantidadeEmprestimos()
+    {
+        int contador = 0;
+
+        for (int i = 0; i < Emprestimos.Length; i++)
+        {
+            if (Emprestimos[i] != null)
+                contador++;
+        }
+        return contador;
+    }
     public string Validar()
     {
         string erros = "";
