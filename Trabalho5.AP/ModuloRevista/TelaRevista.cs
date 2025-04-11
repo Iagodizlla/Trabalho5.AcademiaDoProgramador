@@ -40,6 +40,7 @@ public class TelaRevista
 
         Revista revista = new Revista(titulo, statusEmprestimo, caixa, numeroEdicao, anoPublicacao);
         repositorioRevista.AdicionarRevista(revista);
+        caixa.AdicionarRevista(revista);
     }
     public void ListarCaixas()
     {
@@ -72,6 +73,9 @@ public class TelaRevista
         Console.Write("ID: ");
         int id = Convert.ToInt16(Console.ReadLine()!);
         Revista revista = repositorioRevista.BuscarRevista(id, statusEmprestimo);
+        Caixa caixa1 = revista.Caixa;
+        caixa1.RemoverRevista(revista);
+
         if (revista != null)
         {
             Console.Write("Titulo: ");
@@ -88,6 +92,7 @@ public class TelaRevista
 
             repositorioRevista.EditarRevista(revista, titulo, statusEmprestimo, caixa, numeroEdicao, anoPublicacao);
             Console.WriteLine("Revista editado com sucesso!");
+            caixa.AdicionarRevista(revista);
         }
         else
         {
@@ -103,6 +108,8 @@ public class TelaRevista
         Console.Write("ID: ");
         int id = Convert.ToInt16(Console.ReadLine()!);
         Revista revista = repositorioRevista.BuscarRevista(id, "");
+        Caixa caixa1 = revista.Caixa;
+        caixa1.RemoverRevista(revista);
         if (revista != null)
         {
             repositorioRevista.RemoverRevista(revista);

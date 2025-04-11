@@ -30,15 +30,15 @@ public class TelaCaixa
         Console.WriteLine("-----------------");
         Caixa[] caixas = repositorioCaixa.ListarCaixas();
         Console.WriteLine(
-            "{0, -6} | {1, -20} | {2, -20} | {3, -20}",
-            "ID", "Etiqueta", "Dias de Emprestimo", "Cor"
+            "{0, -6} | {1, -20} | {2, -20} | {3, -20} | {4, -15}",
+            "ID", "Etiqueta", "Dias de Emprestimo", "Cor", "Quantidade de Revistas"
             );
         for (int i = 0; i < caixas.Length; i++)
         {
             if (caixas[i] == null) continue;
             Console.WriteLine(
-                "{0, -6} | {1, -20} | {2, -20} | {3, -20}",
-                caixas[i].Id, caixas[i].Etiqueta, caixas[i].DiasDeEmprestimo, caixas[i].Cor
+                "{0, -6} | {1, -20} | {2, -20} | {3, -20} | {4, -15}",
+                caixas[i].Id, caixas[i].Etiqueta, caixas[i].DiasDeEmprestimo, caixas[i].Cor, caixas[i].ObterQuantidadeRevistas()
             );
         }
         Console.ReadLine();
