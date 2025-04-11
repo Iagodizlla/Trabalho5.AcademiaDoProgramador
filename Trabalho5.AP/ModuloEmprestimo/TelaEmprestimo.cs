@@ -68,6 +68,15 @@ public class TelaEmprestimo
         Revista revista = repositorioRevista.BuscarRevista(idR, situacao);
 
         Emprestimo emprestimo = new Emprestimo(amigo, revista/*, data*/, situacao);
+        string erros = emprestimo.Validar();
+        if (erros.Length > 0)
+        {
+            Console.WriteLine(erros);
+
+            CadastrarEmprestimo();
+
+            return;
+        }
         repositorioEmprestimo.AdicionarEmprestimo(emprestimo);
     }
     public void ListarEmprestimos()
