@@ -10,6 +10,7 @@ public class Program
 {
     static void Main(string[] args)
     {
+        #region Configuração do Console
         Menu menu = new Menu();
         RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
         RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
@@ -20,6 +21,7 @@ public class Program
         TelaCaixa telaCaixa = new TelaCaixa(repositorioCaixa);
         TelaRevista telaRevista = new TelaRevista(repositorioRevista, repositorioCaixa);
         TelaEmprestimo telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista);
+        #endregion
         bool continuar = true;
         while (true)
         {
