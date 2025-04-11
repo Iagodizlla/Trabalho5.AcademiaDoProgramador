@@ -20,6 +20,36 @@ public class TelaEmprestimo
         this.repositorioAmigo = repositorioAmigo;
         this.repositorioRevista = repositorioRevista;
     }
+    public void ListarEmprestimosAmigo()
+    {
+        Console.Clear();
+        Console.WriteLine("Listar Emprestimos de um Amigo");
+
+        ListarAmigos();
+        Console.Write("ID: ");
+        int idA = Convert.ToInt16(Console.ReadLine()!);
+        Amigo amigo = repositorioAmigo.BuscarAmigo(idA);
+
+        Console.WriteLine("Lista de Emprestimos");
+        Console.WriteLine("-----------------");
+        Emprestimo[] emprestimo = repositorioEmprestimo.ListarEmprestimos();
+        Console.WriteLine(
+            "{0, -6} | {1, -20} | {2, -20} | {3, -15}",
+            "ID", "Nome Amigo", "Titulo Revista", "Situacao"
+            );
+        for (int i = 0; i < emprestimo.Length; i++)
+        {
+            if (emprestimo[i] == null) continue;
+            if (emprestimo[i].Amigo != amigo) continue;
+            Console.WriteLine(
+                "{0, -6} | {1, -20} | {2, -20} | {3, -15}",
+                emprestimo[i].Id, emprestimo[i].Amigo.Nome, emprestimo[i].Revista.Titulo, emprestimo[i].Situacao
+            );
+        }
+        Console.ReadLine();
+
+
+    }
     public void CadastrarEmprestimo()
     {
         Console.Clear();
