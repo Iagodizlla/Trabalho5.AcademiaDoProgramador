@@ -31,14 +31,17 @@ public class Revista
         if (Titulo.Length < 3)
             erros += "O campo 'Titulo' precisa conter ao menos 3 caracteres.\n";
 
+        if (Titulo.Length > 100)
+            erros += "O campo 'Titulo' precisa conter ao maximo 100 caracteres.\n";
+
         if (StatusEmprestimo.Length < 5)
             erros += "O campo 'Status de Emprestimo' precisa conter ao menos 5 caracteres.\n";
 
         if (Caixa == null)
             erros += "O campo 'Caixa' é obrigatório.\n";
 
-        if (NumeroEdicao < 5)
-            erros += "O campo 'Numero de Edicao' deve seguir o formato 00000.";
+        if (NumeroEdicao < 0)
+            erros += "O campo 'Numero de Edicao' deve ser positivo.";
 
         return erros;
     }
