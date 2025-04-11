@@ -18,7 +18,7 @@ public class TelaCaixa
         Console.Write("Cor: ");
         string cor = Console.ReadLine()!;
         Console.Write("Dias de emprestimo: ");
-        DateTime diasDeEmprestimo = Convert.ToDateTime(Console.ReadLine()!);
+        int diasDeEmprestimo = Convert.ToInt16(Console.ReadLine()!);
 
         Caixa caixa = new Caixa(etiqueta, cor, diasDeEmprestimo);
         repositorioCaixa.AdicionarCaixa(caixa);
@@ -30,15 +30,15 @@ public class TelaCaixa
         Console.WriteLine("-----------------");
         Caixa[] caixas = repositorioCaixa.ListarCaixas();
         Console.WriteLine(
-            "{0, -6} | {1, -20} | {2, -20} | {3, -20}",
-            "ID", "Etiqueta", "Dias de Emprestimo", "Cor"
+            "{0, -6} | {1, -20} | {2, -20} | {3, -20} | {4, -15}",
+            "ID", "Etiqueta", "Dias de Emprestimo", "Cor", "Quantidade de Revistas"
             );
         for (int i = 0; i < caixas.Length; i++)
         {
             if (caixas[i] == null) continue;
             Console.WriteLine(
-                "{0, -6} | {1, -20} | {2, -20} | {3, -20}",
-                caixas[i].Id, caixas[i].Etiqueta, caixas[i].DiasDeEmprestimo, caixas[i].Cor
+                "{0, -6} | {1, -20} | {2, -20} | {3, -20} | {4, -15}",
+                caixas[i].Id, caixas[i].Etiqueta, caixas[i].DiasDeEmprestimo, caixas[i].Cor, caixas[i].ObterQuantidadeRevistas()
             );
         }
         Console.ReadLine();
@@ -60,6 +60,7 @@ public class TelaCaixa
         {
             Console.WriteLine("Caixa não encontrado.");
         }
+        Console.ReadLine();
     }
     public void EditarCaixa()
     {
@@ -76,7 +77,7 @@ public class TelaCaixa
             Console.Write("Cor: ");
             string novoCor = Console.ReadLine()!;
             Console.Write("Dias de emprestimo: ");
-            DateTime novoDiasDeEmprestimo = Convert.ToDateTime(Console.ReadLine()!);
+            int novoDiasDeEmprestimo = Convert.ToInt16(Console.ReadLine()!);
 
             repositorioCaixa.EditarCaixa(caixa, novoEtiqueta, novoCor, novoDiasDeEmprestimo);
             Console.WriteLine("Caixa editado com sucesso!");
@@ -85,5 +86,6 @@ public class TelaCaixa
         {
             Console.WriteLine("Caixa não encontrado.");
         }
+        Console.ReadLine();
     }
 }

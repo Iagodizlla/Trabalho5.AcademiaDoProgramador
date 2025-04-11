@@ -65,4 +65,30 @@ public class RepositorioRevista
             }
         }
     }
+    public string EditarSituacao()
+    {
+        string novosituacao;
+        while (true)
+        {
+            Console.Clear();
+            Console.Write("\n1. Disponível\n2. Emprestada\n3. Reservada\nSituacao: ");
+            novosituacao = Console.ReadLine()!;
+            if (novosituacao == "1")
+            {
+                novosituacao = "Disponível"; break;
+            }
+            else if (novosituacao == "2")
+            {
+                novosituacao = "Emprestada"; break;
+            }
+            else if (novosituacao == "3")
+            {
+                novosituacao = "Reservada"; break;
+            }
+            else
+                Console.WriteLine("Invalido, tente novamente!");
+            Console.ReadLine();
+        }
+        return novosituacao;
+    }
 }
