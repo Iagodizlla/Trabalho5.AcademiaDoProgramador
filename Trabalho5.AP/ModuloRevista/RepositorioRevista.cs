@@ -91,4 +91,19 @@ public class RepositorioRevista
         }
         return novosituacao;
     }
+    public string ValidarRevista(string titulo, int edicao)
+    {
+        for (int i = 0; i < contadorRevistas; i++)
+        {
+            if (revistas[i].Titulo == titulo)
+            {
+                return "Titulo de Revista já cadastrado.\n";
+            }
+            if (revistas[i].NumeroEdicao == edicao)
+            {
+                return "Numero de Edicao de Revista já cadastrado.\n";
+            }
+        }
+        return "";
+    }
 }

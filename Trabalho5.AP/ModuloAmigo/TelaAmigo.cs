@@ -20,7 +20,17 @@ public class TelaAmigo
         Console.Write("Responsável: ");
         string responsavel = Console.ReadLine()!;
 
-        Amigo amigo = new Amigo(nome, telefone, responsavel);
+        Amigo amigo = new Amigo(nome, telefone, responsavel); 
+        string erros = amigo.Validar();
+        erros += repositorioAmigo.ValidarAmigo(nome, telefone);
+        if (erros.Length > 0)
+        {
+            Console.WriteLine(erros);
+
+            CadastrarAmigo();
+
+            return;
+        }
         repositorioAmigo.AdicionarAmigo(amigo);
     }
     public void RemoverAmigo()
@@ -31,6 +41,12 @@ public class TelaAmigo
         Console.Write("ID: ");
         int id = Convert.ToInt16(Console.ReadLine()!);
         Amigo amigo = repositorioAmigo.BuscarAmigo(id);
+        if(amigo.Emprestimos.Length > 0)
+        {
+            Console.WriteLine("Amigo não pode ser removido, pois possui empréstimos ativos.");
+            Console.ReadLine();
+            return;
+        }
         if (amigo != null)
         {
             repositorioAmigo.RemoverAmigo(amigo);

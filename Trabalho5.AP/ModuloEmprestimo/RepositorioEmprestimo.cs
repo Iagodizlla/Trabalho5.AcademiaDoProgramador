@@ -41,6 +41,42 @@ public class RepositorioEmprestimo
             }
         }
     }
+    public int QuantidadeEmprestimosAmigo(Amigo amigo)
+    {
+        int contador = 0;
+        for (int i = 0; i < 100; i++)
+        {
+            if (amigo.Emprestimos != null)
+                contador++;
+        }
+        return contador;
+    }
+    public string EditarSituacao()
+    {
+        string novosituacao;
+        while (true)
+        {
+            Console.Clear();
+            Console.Write("\n1. Aberto\n2. Concluído\n3. Atrasado\nSituacao: ");
+            novosituacao = Console.ReadLine()!;
+            if (novosituacao == "1")
+            {
+                novosituacao = "Aberto"; break;
+            }
+            else if (novosituacao == "2")
+            {
+                novosituacao = "Concluído"; break;
+            }
+            else if (novosituacao == "3")
+            {
+                novosituacao = "Atrasado"; break;
+            }
+            else
+                Console.WriteLine("Invalido, tente novamente!");
+            Console.ReadLine();
+        }
+        return novosituacao;
+    }
     public Emprestimo BuscarEmprestimo(int id)
     {
         for (int i = 0; i < contadorEmprestimos; i++)

@@ -23,4 +23,19 @@ public class Emprestimo
         //Data = data;
         Situacao = situacao;
     }
+    public string Validar()
+    {
+        string erros = "";
+
+        if (Situacao.Length < 5)
+            erros += "O campo 'Situacao' precisa conter ao menos 5 caracteres.\n";
+
+        if (Amigo == null)
+            erros += "O campo 'Amigo' é obrigatório.\n";
+
+        if (Revista == null)
+            erros += "O campo 'Revista' é obrigatório.\n";
+
+        return erros;
+    }
 }

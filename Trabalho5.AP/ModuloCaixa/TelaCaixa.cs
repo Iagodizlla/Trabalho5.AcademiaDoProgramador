@@ -9,7 +9,7 @@ public class TelaCaixa
     {
         this.repositorioCaixa = repositorioCaixa;
     }
-    public void CadastrarAmigo()
+    public void CadastrarCaixa()
     {
         Console.Clear();
         Console.WriteLine("Adicionar Caixa");
@@ -21,6 +21,15 @@ public class TelaCaixa
         int diasDeEmprestimo = Convert.ToInt16(Console.ReadLine()!);
 
         Caixa caixa = new Caixa(etiqueta, cor, diasDeEmprestimo);
+        string erros = caixa.Validar();
+        if (erros.Length > 0)
+        {
+            Console.WriteLine(erros);
+
+            CadastrarCaixa();
+
+            return;
+        }
         repositorioCaixa.AdicionarCaixa(caixa);
     }
     public void ListarCaixas()
@@ -51,6 +60,12 @@ public class TelaCaixa
         Console.Write("ID: ");
         int id = Convert.ToInt16(Console.ReadLine()!);
         Caixa caixa = repositorioCaixa.BuscarCaixa(id);
+        if(caixa.Revistas.Length > 0)
+        {
+            Console.WriteLine("Caixa não pode ser removido, pois possui revistas.");
+            Console.ReadLine();
+            return;
+        }
         if (caixa != null)
         {
             repositorioCaixa.RemoverCaixa(caixa);

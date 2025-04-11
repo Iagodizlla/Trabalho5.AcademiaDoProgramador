@@ -48,7 +48,7 @@ public class Program
                     char opcao = menu.MostrarMenuCaixa();
                     switch (opcao)
                     {
-                        case '1': telaCaixa.CadastrarAmigo(); break;
+                        case '1': telaCaixa.CadastrarCaixa(); break;
                         case '2': telaCaixa.RemoverCaixa(); break;
                         case '3': telaCaixa.ListarCaixas(); break;
                         case '4': telaCaixa.EditarCaixa(); break;

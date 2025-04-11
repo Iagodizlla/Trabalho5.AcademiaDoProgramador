@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using Trabalho5.AP.ModuloCaixa;
@@ -22,5 +23,26 @@ public class Revista
         Caixa = caixa;
         NumeroEdicao = numeroEdicao;
         AnoPublicacao = anoPublicacao;
+    }
+    public string Validar()
+    {
+        string erros = "";
+
+        if (Titulo.Length < 3)
+            erros += "O campo 'Titulo' precisa conter ao menos 3 caracteres.\n";
+
+        if (Titulo.Length > 100)
+            erros += "O campo 'Titulo' precisa conter ao maximo 100 caracteres.\n";
+
+        if (StatusEmprestimo.Length < 5)
+            erros += "O campo 'Status de Emprestimo' precisa conter ao menos 5 caracteres.\n";
+
+        if (Caixa == null)
+            erros += "O campo 'Caixa' é obrigatório.\n";
+
+        if (NumeroEdicao < 0)
+            erros += "O campo 'Numero de Edicao' deve ser positivo.";
+
+        return erros;
     }
 }
