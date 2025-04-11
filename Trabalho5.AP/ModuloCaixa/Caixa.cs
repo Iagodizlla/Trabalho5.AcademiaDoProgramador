@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using Trabalho5.AP.ModuloRevista;
@@ -53,6 +54,21 @@ namespace Trabalho5.AP.ModuloCaixa
                     contador++;
             }
             return contador;
+        }
+        public string Validar()
+        {
+            string erros = "";
+
+            if (Cor.Length < 3)
+                erros += "O campo 'Cor' precisa conter ao menos 3 caracteres.\n";
+
+            if (Etiqueta.Length < 5)
+                erros += "O campo 'Etiqueta' precisa conter ao menos 5 caracteres.\n";
+
+            if (DiasDeEmprestimo > 0 )
+                erros += "O campo 'Dias de Emprestimo' deve ser positivo.";
+
+            return erros;
         }
     }
 }

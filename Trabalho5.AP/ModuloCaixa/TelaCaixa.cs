@@ -9,7 +9,7 @@ public class TelaCaixa
     {
         this.repositorioCaixa = repositorioCaixa;
     }
-    public void CadastrarAmigo()
+    public void CadastrarCaixa()
     {
         Console.Clear();
         Console.WriteLine("Adicionar Caixa");
@@ -21,6 +21,15 @@ public class TelaCaixa
         int diasDeEmprestimo = Convert.ToInt16(Console.ReadLine()!);
 
         Caixa caixa = new Caixa(etiqueta, cor, diasDeEmprestimo);
+        string erros = caixa.Validar();
+        if (erros.Length > 0)
+        {
+            Console.WriteLine(erros);
+
+            CadastrarCaixa();
+
+            return;
+        }
         repositorioCaixa.AdicionarCaixa(caixa);
     }
     public void ListarCaixas()
