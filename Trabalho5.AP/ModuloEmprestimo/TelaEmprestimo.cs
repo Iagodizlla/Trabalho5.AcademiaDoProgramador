@@ -75,7 +75,7 @@ public class TelaEmprestimo
         if (erros.Length > 0)
         {
             Console.WriteLine(erros);
-
+            Console.ReadLine();
             CadastrarEmprestimo();
 
             return;
@@ -226,7 +226,7 @@ public class TelaEmprestimo
             if (revistas[i] == null) continue;
             Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -15} | {3, -15} | {4, -20} | {5, -20}",
-                revistas[i].Id, revistas[i].Titulo, revistas[i].StatusEmprestimo, revistas[i].NumeroEdicao, revistas[i].AnoPublicacao, revistas[i].Caixa.Etiqueta
+                revistas[i].Id, revistas[i].Titulo, revistas[i].StatusEmprestimo, revistas[i].NumeroEdicao, revistas[i].AnoPublicacao.Year, revistas[i].Caixa.Etiqueta
             );
         }
         Console.ReadLine();

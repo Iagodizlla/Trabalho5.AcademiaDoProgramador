@@ -26,7 +26,7 @@ public class TelaAmigo
         if (erros.Length > 0)
         {
             Console.WriteLine(erros);
-
+            Console.ReadLine();
             CadastrarAmigo();
 
             return;

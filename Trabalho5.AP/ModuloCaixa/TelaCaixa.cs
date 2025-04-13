@@ -22,10 +22,10 @@ public class TelaCaixa
 
         Caixa caixa = new Caixa(etiqueta, cor, diasDeEmprestimo);
         string erros = caixa.Validar();
-        if (erros.Length > 0)
+        if (erros.Length > 1)
         {
             Console.WriteLine(erros);
-
+            Console.ReadLine();
             CadastrarCaixa();
 
             return;
