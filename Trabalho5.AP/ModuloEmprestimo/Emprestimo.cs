@@ -14,13 +14,13 @@ public class Emprestimo
     public int Id { get; set; }
     public Amigo Amigo { get; set; }
     public Revista Revista { get; set; }
-    //public DateTime Data { get; set; }
+    public DateTime Data { get; set; }
     public string Situacao { get; set; }
-    public Emprestimo(Amigo amigo, Revista revista/*, DateTime data*/, string situacao)
+    public Emprestimo(Amigo amigo, Revista revista, DateTime data, string situacao)
     {
         Amigo = amigo;
         Revista = revista;
-        //Data = data;
+        Data = data;
         Situacao = situacao;
     }
     public string Validar()

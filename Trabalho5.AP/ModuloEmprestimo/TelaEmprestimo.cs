@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,8 +65,14 @@ public class TelaEmprestimo
         int idR = Convert.ToInt16(Console.ReadLine()!);
         Revista revista = repositorioRevista.BuscarRevista(idR, situacao);
 
-        Emprestimo emprestimo = new Emprestimo(amigo, revista/*, data*/, situacao);
-        if (repositorioEmprestimo.QuantidadeEmprestimosAmigo(amigo) >= 1)
+        Console.Write("Data de abertura do emprestimo: ");
+        DateTime dataAbertura = Convert.ToDateTime(Console.ReadLine()!);
+        DateTime dataFinal = dataAbertura.AddDays(revista.Caixa.DiasDeEmprestimo);
+        DateTime hoje = DateTime.Today;
+        DateTime data = dataFinal.AddDays(-hoje.Day);
+
+        Emprestimo emprestimo = new Emprestimo(amigo, revista, data, situacao);
+        if (repositorioEmprestimo.QuantidadeEmprestimosAmigo(amigo) > 1)
         {
             Console.WriteLine("Amigo já possui 1 emprestimo ativo.");
             Console.ReadLine();
@@ -100,16 +107,16 @@ public class TelaEmprestimo
         Console.WriteLine("-----------------");
         Emprestimo[] emprestimo = repositorioEmprestimo.ListarEmprestimos();
         Console.WriteLine(
-            "{0, -6} | {1, -20} | {2, -20} | {3, -15}",
-            "ID", "Nome Amigo", "Titulo Revista", "Situacao"
+            "{0, -6} | {1, -20} | {2, -20} | {3, -15} | {4, -15}",
+            "ID", "Nome Amigo", "Titulo Revista", "Situacao", "Data Restante"
             );
         for (int i = 0; i < emprestimo.Length; i++)
         {
             if (emprestimo[i] == null) continue;
             if (emprestimo[i].Situacao != situacaoescolhida && situacaoescolhida != "Geral") continue;
             Console.WriteLine(
-                "{0, -6} | {1, -20} | {2, -20} | {3, -15}",
-                emprestimo[i].Id, emprestimo[i].Amigo.Nome, emprestimo[i].Revista.Titulo, emprestimo[i].Situacao
+                "{0, -6} | {1, -20} | {2, -20} | {3, -15} | {4, -15}",
+                emprestimo[i].Id, emprestimo[i].Amigo.Nome, emprestimo[i].Revista.Titulo, emprestimo[i].Situacao, emprestimo[i].Data.ToString("dd")
             );
         }
         Console.ReadLine();
@@ -211,7 +218,7 @@ public class TelaEmprestimo
         }
         Console.ReadLine();
     }
-    public void ListarRevistas()
+    public void ListarRevistas()    
     {
         Console.Clear();
         Console.WriteLine("Lista de Revistas");

@@ -30,7 +30,7 @@ public class TelaRevista
         Console.Write("Numero de edicao: ");
         int numeroEdicao = Convert.ToInt32(Console.ReadLine()!);
 
-        Console.Write("Ano de publicacao: ");
+        Console.Write("Data de publicacao: ");
         DateTime anoPublicacao = Convert.ToDateTime(Console.ReadLine()!);
 
         ListarCaixas();

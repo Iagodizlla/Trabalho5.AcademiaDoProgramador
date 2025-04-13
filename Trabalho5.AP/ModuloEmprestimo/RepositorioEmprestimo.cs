@@ -46,7 +46,7 @@ public class RepositorioEmprestimo
         int contador = 0;
         for (int i = 0; i < 100; i++)
         {
-            if (amigo.Emprestimos != null)
+            if (amigo.Emprestimos[i] != null)
                 contador++;
         }
         return contador;
