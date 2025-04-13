@@ -69,7 +69,7 @@ public class TelaEmprestimo
         DateTime dataAbertura = Convert.ToDateTime(Console.ReadLine()!);
         DateTime dataFinal = dataAbertura.AddDays(revista.Caixa.DiasDeEmprestimo);
         DateTime hoje = DateTime.Today;
-        DateTime data = dataFinal.AddDays(-hoje.Day);
+        TimeSpan data = dataFinal -hoje;
 
         Emprestimo emprestimo = new Emprestimo(amigo, revista, data, situacao);
         if (repositorioEmprestimo.QuantidadeEmprestimosAmigo(amigo) > 1)
