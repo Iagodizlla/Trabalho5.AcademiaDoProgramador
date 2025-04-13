@@ -1,6 +1,6 @@
 # Trabalho Clube da Leitura
 
-![]()
+![](https://i.imgur.com/LgfhwWd.gif)
 
 ## Introdução
 
