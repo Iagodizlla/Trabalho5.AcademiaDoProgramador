@@ -65,13 +65,10 @@ public class TelaEmprestimo
         int idR = Convert.ToInt16(Console.ReadLine()!);
         Revista revista = repositorioRevista.BuscarRevista(idR, situacao);
 
-        Console.Write("Data de abertura do emprestimo: ");
-        DateTime dataAbertura = Convert.ToDateTime(Console.ReadLine()!);
-        DateTime dataFinal = dataAbertura.AddDays(revista.Caixa.DiasDeEmprestimo);
         DateTime hoje = DateTime.Today;
-        TimeSpan data = dataFinal -hoje;
+        DateTime dataFinal = hoje.AddDays(revista.Caixa.DiasDeEmprestimo);
 
-        Emprestimo emprestimo = new Emprestimo(amigo, revista, data, situacao);
+        Emprestimo emprestimo = new Emprestimo(amigo, revista, situacao, dataFinal);
         if (repositorioEmprestimo.QuantidadeEmprestimosAmigo(amigo) > 1)
         {
             Console.WriteLine("Amigo já possui 1 emprestimo ativo.");
@@ -114,9 +111,10 @@ public class TelaEmprestimo
         {
             if (emprestimo[i] == null) continue;
             if (emprestimo[i].Situacao != situacaoescolhida && situacaoescolhida != "Geral") continue;
+            TimeSpan Data = emprestimo[i].DataFinal - DateTime.Today;
             Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -20} | {3, -15} | {4, -15}",
-                emprestimo[i].Id, emprestimo[i].Amigo.Nome, emprestimo[i].Revista.Titulo, emprestimo[i].Situacao, emprestimo[i].Data.ToString("dd")
+                emprestimo[i].Id, emprestimo[i].Amigo.Nome, emprestimo[i].Revista.Titulo, emprestimo[i].Situacao, Data.ToString("dd")
             );
         }
         Console.ReadLine();

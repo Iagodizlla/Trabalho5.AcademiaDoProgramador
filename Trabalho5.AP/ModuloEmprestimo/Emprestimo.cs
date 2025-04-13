@@ -14,15 +14,15 @@ public class Emprestimo
     public int Id { get; set; }
     public Amigo Amigo { get; set; }
     public Revista Revista { get; set; }
-    public TimeSpan Data { get; set; }
+    public DateTime DataFinal { get; set; }
     public string Situacao { get; set; }
-    public Emprestimo(Amigo amigo, Revista revista, TimeSpan data, string situacao)
+    public Emprestimo(Amigo amigo, Revista revista, string situacao, DateTime dataFinal)
     {
         Amigo = amigo;
         Revista = revista;
-        Data = data;
         Situacao = situacao;
-    }
+        DataFinal = dataFinal;
+     }
     public string Validar()
     {
         string erros = "";
