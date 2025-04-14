@@ -88,6 +88,7 @@ public class Program
                         case '4': telaEmprestimo.EditarEmprestimo(); break;
                         case '5': telaEmprestimo.RegistrarDevolucao(); break;
                         case '6': telaEmprestimo.ListarEmprestimosAmigo(); break;
+                        case '7': telaEmprestimo.ListarMultasAbertas(); break;
                         case 'S': continuar = false; break;
                         default: Console.WriteLine("Opção inválida."); Console.ReadLine(); break;
                     }
