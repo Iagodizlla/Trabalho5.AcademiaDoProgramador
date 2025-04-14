@@ -57,7 +57,12 @@ public class TelaEmprestimo
         Console.Write("ID: ");
         int idA = Convert.ToInt16(Console.ReadLine()!);
         Amigo amigo = repositorioAmigo.BuscarAmigo(idA);
-
+        if (repositorioEmprestimo.QuantidadeEmprestimosAmigo(amigo) >= 1)
+        {
+            Console.WriteLine("Amigo já possui 1 emprestimo ativo.");
+            Console.ReadLine();
+            return;
+        }
         string situacao = repositorioEmprestimo.EditarSituacao();
 
         ListarRevistas();
@@ -69,12 +74,7 @@ public class TelaEmprestimo
         DateTime dataFinal = hoje.AddDays(revista.Caixa.DiasDeEmprestimo);
 
         Emprestimo emprestimo = new Emprestimo(amigo, revista, situacao, dataFinal);
-        if (repositorioEmprestimo.QuantidadeEmprestimosAmigo(amigo) > 1)
-        {
-            Console.WriteLine("Amigo já possui 1 emprestimo ativo.");
-            Console.ReadLine();
-            return;
-        }
+        
         string erros = emprestimo.Validar();
         if (erros.Length > 0)
         {
