@@ -16,13 +16,15 @@ public class Emprestimo
     public Revista Revista { get; set; }
     public DateTime DataFinal { get; set; }
     public string Situacao { get; set; }
-    public Emprestimo(Amigo amigo, Revista revista, string situacao, DateTime dataFinal)
+    public int Multa { get; set; }
+    public Emprestimo(Amigo amigo, Revista revista, string situacao, DateTime dataFinal, int multa)
     {
         Amigo = amigo;
         Revista = revista;
         Situacao = situacao;
         DataFinal = dataFinal;
-     }
+        Multa = multa;
+    }
     public string Validar()
     {
         string erros = "";

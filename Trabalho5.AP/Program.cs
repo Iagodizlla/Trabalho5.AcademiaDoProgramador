@@ -3,6 +3,7 @@ using Trabalho5.AP.ModuloCaixa;
 using Trabalho5.AP.ModuloEmprestimo;
 using Trabalho5.AP.ModuloRevista;
 using Trabalho5.AP.Compartilhado;
+using Trabalho5.AP.ModuloMulta;
 
 namespace Trabalho5.AP;
 
@@ -16,10 +17,12 @@ public class Program
         RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
         RepositorioRevista repositorioRevista = new RepositorioRevista();
         RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
+        RepositorioMulta repositorioMulta = new RepositorioMulta();
 
         TelaAmigo telaAmigo = new TelaAmigo(repositorioAmigo);
         TelaCaixa telaCaixa = new TelaCaixa(repositorioCaixa);
         TelaRevista telaRevista = new TelaRevista(repositorioRevista, repositorioCaixa);
+        TelaMulta telaMulta = new TelaMulta(repositorioMulta, repositorioEmprestimo);
         TelaEmprestimo telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista);
         #endregion
         bool continuar = true;
@@ -88,7 +91,20 @@ public class Program
                         case '4': telaEmprestimo.EditarEmprestimo(); break;
                         case '5': telaEmprestimo.RegistrarDevolucao(); break;
                         case '6': telaEmprestimo.ListarEmprestimosAmigo(); break;
-                        case '7': telaEmprestimo.ListarMultasAbertas(); break;
+                        case 'S': continuar = false; break;
+                        default: Console.WriteLine("Opção inválida."); Console.ReadLine(); break;
+                    }
+                }
+            }
+            else if(opcaoP == '5')
+            {
+                while (continuar)
+                {
+                    char opcao = menu.MostrarMenuMulta();
+                    switch (opcao)
+                    {
+                        case '1': telaMulta.ListarMultasAbertas(); break;
+                        //case '2': telaMulta.QuitarMulta(); break;
                         case 'S': continuar = false; break;
                         default: Console.WriteLine("Opção inválida."); Console.ReadLine(); break;
                     }

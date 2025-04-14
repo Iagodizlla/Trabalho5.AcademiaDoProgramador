@@ -76,7 +76,18 @@ namespace Trabalho5.AP.Compartilhado
             Console.WriteLine("4. Editar Emprestimo");
             Console.WriteLine("5. Registrar Devolucao");
             Console.WriteLine("6. Mostrar Emprestimos de um Amigo");
-            Console.WriteLine("7. Mostrar Multas em aberto");
+            Console.WriteLine("S. Voltar");
+            Console.Write("Escolha uma opção: ");
+
+            char opcao = Console.ReadLine()!.ToUpper()[0];
+            return opcao;
+        }
+        public char MostrarMenuMulta()
+        {
+            Console.Clear();
+            Console.WriteLine("Menu de Multas");
+            Console.WriteLine("1. Listar Multas em Aberto");
+            Console.WriteLine("2. Quitar Multas");
             Console.WriteLine("S. Voltar");
             Console.Write("Escolha uma opção: ");
 

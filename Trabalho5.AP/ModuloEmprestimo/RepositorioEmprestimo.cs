@@ -99,4 +99,15 @@ public class RepositorioEmprestimo
             }
         }
     }
+    public Emprestimo BuscarMultaAberta(int id)
+    {
+        for (int i = 0; i < contadorEmprestimos; i++)
+        {
+            if (emprestimos[i].Id == id && emprestimos[i].Multa > 0)
+            {
+                return emprestimos[i];
+            }
+        }
+        return null!;
+    }
 }
