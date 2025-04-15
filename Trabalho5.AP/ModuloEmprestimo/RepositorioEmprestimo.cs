@@ -99,7 +99,7 @@ public class RepositorioEmprestimo
             }
         }
     }
-    public Emprestimo BuscarMultaAberta(int id)
+    public Emprestimo BuscarMulta(int id)
     {
         for (int i = 0; i < contadorEmprestimos; i++)
         {

@@ -104,7 +104,7 @@ public class Program
                     switch (opcao)
                     {
                         case '1': telaMulta.ListarMultasAbertas(); break;
-                        //case '2': telaMulta.QuitarMulta(); break;
+                        case '2': telaMulta.QuitarMulta(); break;
                         case 'S': continuar = false; break;
                         default: Console.WriteLine("Opção inválida."); Console.ReadLine(); break;
                     }

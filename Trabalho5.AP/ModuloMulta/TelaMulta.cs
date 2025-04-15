@@ -34,7 +34,7 @@ namespace Trabalho5.AP.ModuloMulta
                 if (data < 0)
                 {
                     emprestimo[i].Multa = data * -2;
-                    emprestimo[i].Situacao = "Atrasado";
+                    if (emprestimo[i].Situacao != "Pago")emprestimo[i].Situacao = "Atrasado";
                     Console.WriteLine(
                     "{0, -6} | {1, -20} | {2, -20} | {3, -15} | {4, -15} | {5, -10}",
                     emprestimo[i].Id, emprestimo[i].Amigo.Nome, emprestimo[i].Revista.Titulo, emprestimo[i].Situacao, (data * -1), $"{emprestimo[i].Multa} reais"
@@ -42,6 +42,29 @@ namespace Trabalho5.AP.ModuloMulta
                 }
             }
             Console.ReadLine();
+        }
+        public void QuitarMulta()
+        {
+            Console.Clear();
+            ListarMultasAbertas();
+            Console.Write("ID: ");
+            int id = Convert.ToInt16(Console.ReadLine()!);
+            Emprestimo emprestimo = repositorioEmprestimo.BuscarMulta(id);
+
+            if (emprestimo == null)
+            {
+                Console.WriteLine("Multa não encontrada.");
+                Console.ReadLine();
+                return;
+            }
+            if (emprestimo.Situacao == "Pago")
+            {
+                Console.WriteLine("Multa já paga.");
+                Console.ReadLine();
+                return;
+            }
+            emprestimo.Situacao = "Pago";
+            Console.WriteLine("Multa paga com sucesso!");
         }
     }
 }
