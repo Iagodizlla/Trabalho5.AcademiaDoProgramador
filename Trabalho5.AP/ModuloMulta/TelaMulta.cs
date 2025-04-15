@@ -24,7 +24,7 @@ namespace Trabalho5.AP.ModuloMulta
             Console.WriteLine("-----------------");
             Console.WriteLine(
             "{0, -6} | {1, -20} | {2, -20} | {3, -15} | {4, -15} | {5, -10}",
-            "ID", "Nome Amigo", "Titulo Revista", "Situacao", "Data Restante", "Multa"
+            "ID", "Nome Amigo", "Titulo Revista", "Situacao", "Dias Atrasados", "Multa"
             );
             for (int i = 0; i < emprestimo.Length; i++)
             {
@@ -33,10 +33,11 @@ namespace Trabalho5.AP.ModuloMulta
                 int data = Convert.ToInt32(Data.Days);
                 if (data < 0)
                 {
-                    emprestimo[i].Multa = data * 2;
+                    emprestimo[i].Multa = data * -2;
+                    emprestimo[i].Situacao = "Atrasado";
                     Console.WriteLine(
                     "{0, -6} | {1, -20} | {2, -20} | {3, -15} | {4, -15} | {5, -10}",
-                    emprestimo[i].Id, emprestimo[i].Amigo.Nome, emprestimo[i].Revista.Titulo, emprestimo[i].Situacao, Data.ToString("dd"), $"{emprestimo[i].Multa} reais"
+                    emprestimo[i].Id, emprestimo[i].Amigo.Nome, emprestimo[i].Revista.Titulo, emprestimo[i].Situacao, (data * -1), $"{emprestimo[i].Multa} reais"
                     );
                 }
             }

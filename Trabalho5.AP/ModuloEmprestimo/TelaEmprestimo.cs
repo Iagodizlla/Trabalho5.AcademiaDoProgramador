@@ -112,10 +112,13 @@ public class TelaEmprestimo
             if (emprestimo[i] == null) continue;
             if (emprestimo[i].Situacao != situacaoescolhida && situacaoescolhida != "Geral") continue;
             TimeSpan Data = emprestimo[i].DataFinal - DateTime.Today;
-            Console.WriteLine(
+            int data = Convert.ToInt32(Data.Days);
+            if (data < 0)emprestimo[i].Situacao = "Atrasado";
+            
+                Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -20} | {3, -15} | {4, -15}",
-                emprestimo[i].Id, emprestimo[i].Amigo.Nome, emprestimo[i].Revista.Titulo, emprestimo[i].Situacao, Data.ToString("dd")
-            );
+                emprestimo[i].Id, emprestimo[i].Amigo.Nome, emprestimo[i].Revista.Titulo, emprestimo[i].Situacao, data
+                );
         }
         Console.ReadLine();
     }
