@@ -1,6 +1,4 @@
-﻿using Trabalho5.AP.ModuloAmigo;
-
-namespace Trabalho5.AP.ModuloCaixa;
+﻿namespace Trabalho5.AP.ModuloCaixa;
 
 public class TelaCaixa
 {

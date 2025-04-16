@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Trabalho5.AP.ModuloAmigo;
-using Trabalho5.AP.ModuloCaixa;
+﻿using Trabalho5.AP.ModuloAmigo;
 using Trabalho5.AP.ModuloRevista;
 
 namespace Trabalho5.AP.ModuloEmprestimo;

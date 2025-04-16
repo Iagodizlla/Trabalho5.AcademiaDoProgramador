@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Trabalho5.AP.Compartilhado;
-using Trabalho5.AP.ModuloEmprestimo;
-
-namespace Trabalho5.AP.ModuloMulta
+﻿namespace Trabalho5.AP.ModuloMulta
 {
     public class RepositorioMulta
     {
