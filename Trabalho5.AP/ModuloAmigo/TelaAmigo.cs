@@ -1,15 +1,17 @@
-﻿namespace Trabalho5.AP.ModuloAmigo;
+﻿using Trabalho5.AP.Compartilhado;
+using Trabalho5.AP.Util;
 
-public class TelaAmigo
+namespace Trabalho5.AP.ModuloAmigo;
+
+public class TelaAmigo : TelaBase
 {
     RepositorioAmigo repositorioAmigo;
-    public TelaAmigo(RepositorioAmigo repositorioAmigo)
+    public TelaAmigo(RepositorioAmigo repositorioAmigo) : base("Amigo", repositorioAmigo)
     {
         this.repositorioAmigo = repositorioAmigo;
     }
-    public void CadastrarAmigo()
+    public override EntidadeBase ObterDados()
     {
-        Console.Clear();
         Console.WriteLine("Adicionar Amigo");
         Console.Write("Nome: ");
         string nome = Console.ReadLine()!;
@@ -18,88 +20,135 @@ public class TelaAmigo
         Console.Write("Responsável: ");
         string responsavel = Console.ReadLine()!;
 
-        Amigo amigo = new Amigo(nome, telefone, responsavel); 
-        string erros = amigo.Validar();
-        erros += repositorioAmigo.ValidarAmigo(nome, telefone);
+
+        Amigo amigo = new Amigo(nome, telefone, responsavel);
+
+        return amigo;
+    }
+    public override void CadastrarRegistro()
+    {
+        ExibirCabecalho();
+
+        Console.WriteLine();
+
+        Console.WriteLine("Cadastrando Amigo...");
+        Console.WriteLine("--------------------------------------------");
+
+        Console.WriteLine();
+
+        Amigo novoAmigo = (Amigo)ObterDados();
+
+        string erros = novoAmigo.Validar();
+
         if (erros.Length > 0)
         {
-            Console.WriteLine(erros);
-            Console.ReadLine();
-            CadastrarAmigo();
+            Notificador.ExibirMensagem(erros, ConsoleColor.Red);
+
+            CadastrarRegistro();
 
             return;
         }
-        repositorioAmigo.AdicionarAmigo(amigo);
+
+        repositorioAmigo.CadastrarRegistro(novoAmigo);
+
+        Notificador.ExibirMensagem("O registro foi concluído com sucesso!", ConsoleColor.Green);
     }
-    public void RemoverAmigo()
+    public override void EditarRegistro()
     {
-        Console.Clear();
-        Console.WriteLine("Remover Amigo");
-        ListarAmigos();
-        Console.Write("ID: ");
-        int id = Convert.ToInt16(Console.ReadLine()!);
-        Amigo amigo = repositorioAmigo.BuscarAmigo(id);
-        if(amigo.Emprestimos.Length > 0)
+        ExibirCabecalho();
+
+        Console.WriteLine();
+
+        Console.WriteLine("Editando Amigo...");
+        Console.WriteLine("--------------------------------------------");
+
+        VisualizarRegistros(false);
+
+        Console.Write("Digite o ID do registro que deseja selecionar: ");
+        int idSelecionado = Convert.ToInt32(Console.ReadLine());
+
+        Amigo amigoAntigo = (Amigo)repositorioAmigo.SelecionarRegistroPorId(idSelecionado);
+
+        Console.WriteLine();
+
+        Amigo amigoEditado = (Amigo)ObterDados();
+
+        bool conseguiuEditar = repositorioAmigo.EditarRegistro(idSelecionado, amigoEditado);
+
+        if (!conseguiuEditar)
         {
-            Console.WriteLine("Amigo não pode ser removido, pois possui empréstimos ativos.");
-            Console.ReadLine();
+            Notificador.ExibirMensagem("Houve um erro durante a edição de um registro...", ConsoleColor.Red);
+
             return;
         }
-        if (amigo != null)
-        {
-            repositorioAmigo.RemoverAmigo(amigo);
-            Console.WriteLine("Amigo removido com sucesso!");
-        }
-        else
-        {
-            Console.WriteLine("Amigo não encontrado.");
-        }
-        Console.ReadLine();
+
+        Notificador.ExibirMensagem("O registro foi editado com sucesso!", ConsoleColor.Green);
     }
-    public void ListarAmigos()
+    public override void ExcluirRegistro()
     {
-        Console.Clear();
-        Console.WriteLine("Lista de Amigos");
-        Console.WriteLine("-----------------");
-        Amigo[] amigos = repositorioAmigo.ListarAmigos();
+        ExibirCabecalho();
+
+        Console.WriteLine();
+
+        Console.WriteLine("Excluindo Amigo...");
+        Console.WriteLine("--------------------------------------------");
+
+        VisualizarRegistros(false);
+
+        Console.Write("Digite o ID do registro que deseja selecionar: ");
+        int idSelecionado = Convert.ToInt32(Console.ReadLine());
+
+        Amigo amigoSelecionado = (Amigo)repositorioAmigo.SelecionarRegistroPorId(idSelecionado);
+
+        bool conseguiuExcluir = repositorioAmigo.ExcluirRegistro(idSelecionado);
+
+        if (!conseguiuExcluir)
+        {
+            Notificador.ExibirMensagem("Houve um erro durante a exclusão de um registro...", ConsoleColor.Red);
+
+            return;
+        }
+
+        Notificador.ExibirMensagem("O registro foi excluído com sucesso!", ConsoleColor.Green);
+    }
+    public override void VisualizarRegistros(bool exibirTitulo)
+    {
+        if (exibirTitulo)
+            ExibirCabecalho();
+
+        Console.WriteLine();
+
+        Console.WriteLine("Visualizando Amigos...");
+        Console.WriteLine("--------------------------------------------");
+
+        Console.WriteLine();
+
         Console.WriteLine(
             "{0, -6} | {1, -20} | {2, -20} | {3, -20}",
             "ID", "Nome", "Telefone", "Responsável"
-            );
-        for (int i = 0; i < amigos.Length; i++)
+        );
+
+        EntidadeBase[] registros = repositorioAmigo.SelecionarRegistros();
+
+        Amigo[] amigosCadastrados = new Amigo[registros.Length];
+
+        for (int i = 0; i < registros.Length; i++)
+            amigosCadastrados[i] = (Amigo)registros[i];
+
+        for (int i = 0; i < amigosCadastrados.Length; i++)
         {
-            if (amigos[i] == null) continue;
+            Amigo amigos = amigosCadastrados[i];
+
+            if (amigos == null) continue;
+
             Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -20} | {3, -20}",
-                amigos[i].Id, amigos[i].Nome, amigos[i].Telefone, amigos[i].Responsavel
+                amigos.Id, amigos.Nome, amigos.Telefone, amigos.Responsavel
             );
         }
-        Console.ReadLine();
-    }
-    public void EditarAmigo()
-    {
-        Console.Clear();
-        Console.WriteLine("Editar Amigo");
-        ListarAmigos();
-        Console.Write("ID: ");
-        int id = Convert.ToInt16(Console.ReadLine()!);
-        Amigo amigo = repositorioAmigo.BuscarAmigo(id);
-        if (amigo != null)
-        {
-            Console.Write("Novo Nome: ");
-            string novoNome = Console.ReadLine()!;
-            Console.Write("Novo Telefone: ");
-            string novoTelefone = Console.ReadLine()!;
-            Console.Write("Novo Responsável: ");
-            string novoResponsavel = Console.ReadLine()!;
 
-            repositorioAmigo.EditarAmigo(amigo, novoNome, novoTelefone, novoResponsavel);
-            Console.WriteLine("Amigo editado com sucesso!");
-        }
-        else
-        {
-            Console.WriteLine("Amigo não encontrado.");
-        }
-        Console.ReadLine();
+        Console.WriteLine();
+
+        Notificador.ExibirMensagem("Pressione ENTER para continuar...", ConsoleColor.DarkYellow);
     }
 }

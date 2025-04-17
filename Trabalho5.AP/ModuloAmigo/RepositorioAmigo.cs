@@ -1,72 +1,7 @@
-﻿namespace Trabalho5.AP.ModuloAmigo;
+﻿using Trabalho5.AP.Compartilhado;
 
-public class RepositorioAmigo
+namespace Trabalho5.AP.ModuloAmigo;
+
+public class RepositorioAmigo : RepositorioBase
 {
-    public Amigo[] amigos = new Amigo[100];
-    public int contadorAmigos = 0;
-    public void AdicionarAmigo(Amigo amigo)
-    {
-        amigo.Id = GeradorId.GerarIdAmigo();
-        amigos[contadorAmigos++] = amigo;
-    }
-    public void RemoverAmigo(Amigo amigo)
-    {
-        for (int i = 0; i < contadorAmigos; i++)
-        {
-            if (amigos[i] == amigo)
-            {
-                amigos[i] = null!;
-                break;
-            }
-        }
-    }
-    public Amigo[] ListarAmigos()
-    {
-        Amigo[] amigosAtuais = new Amigo[contadorAmigos];
-        for (int i = 0; i < contadorAmigos; i++)
-        {
-            amigosAtuais[i] = amigos[i];
-        }
-        return amigosAtuais;
-    }
-    public Amigo BuscarAmigo(int id)
-    {
-        for (int i = 0; i < contadorAmigos; i++)
-        {
-            if (amigos[i].Id == id)
-            {
-                return amigos[i];
-            }
-        }
-        return null!;
-    }
-    public void EditarAmigo(Amigo amigo, string novoNome, string novoTelefone, string novoResponsavel)
-    {
-        for (int i = 0; i < contadorAmigos; i++)
-        {
-            if (amigos[i] == amigo)
-            {
-                amigos[i].Nome = novoNome;
-                amigos[i].Telefone = novoTelefone;
-                amigos[i].Responsavel = novoResponsavel;
-                break;
-            }
-        }
-    }
-    public string ValidarAmigo(string nome, string telefone)
-    {
-        for (int i = 0; i < contadorAmigos; i++)
-        {
-            if (amigos[i].Nome == nome)
-            {
-                return "Nome de Amigo já cadastrado.\n";
-            }
-            if (amigos[i].Telefone == telefone)
-            {
-                return "Telefone de Amigo já cadastrado.\n";
-                
-            }
-        }
-        return "";
-    }
 }

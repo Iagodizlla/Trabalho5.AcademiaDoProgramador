@@ -1,20 +1,28 @@
-﻿using Trabalho5.AP.ModuloEmprestimo;
+﻿using Trabalho5.AP.Compartilhado;
+using Trabalho5.AP.ModuloEmprestimo;
 namespace Trabalho5.AP.ModuloAmigo;
 
-public class Amigo
+public class Amigo : EntidadeBase
 {
     public int Id { get; set; }
     public string Nome { get; set; }
     public string Telefone { get; set; }
     public string Responsavel { get; set; }
     public Emprestimo[] Emprestimos { get; set; }
-
     public Amigo(string nome, string telefone, string responsavel)
     {
         Nome = nome;
         Telefone = telefone;
         Responsavel = responsavel;
         Emprestimos = new Emprestimo[100];
+    }
+    public override void AtualizarRegistro(EntidadeBase registroAtualizado)
+    {
+        Amigo amigoAtualizado = (Amigo)registroAtualizado;
+
+        Nome = amigoAtualizado.Nome;
+        Telefone = amigoAtualizado.Telefone;
+        Responsavel = amigoAtualizado.Responsavel;
     }
     public void AdicionarEmprestimo(Emprestimo emprestimo)
     {
@@ -49,7 +57,7 @@ public class Amigo
         }
         return contador;
     }
-    public string Validar()
+    public override string Validar()
     {
         string erros = "";
 
