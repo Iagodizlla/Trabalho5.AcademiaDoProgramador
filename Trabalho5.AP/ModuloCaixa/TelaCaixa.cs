@@ -1,15 +1,18 @@
-﻿namespace Trabalho5.AP.ModuloCaixa;
+﻿using Trabalho5.AP.Compartilhado;
+using Trabalho5.AP.ModuloAmigo;
+using Trabalho5.AP.Util;
 
-public class TelaCaixa
+namespace Trabalho5.AP.ModuloCaixa;
+
+public class TelaCaixa : TelaBase
 {
     RepositorioCaixa repositorioCaixa;
-    public TelaCaixa(RepositorioCaixa repositorioCaixa)
+    public TelaCaixa(RepositorioCaixa repositorioCaixa) : base("Caixa", repositorioCaixa)
     {
         this.repositorioCaixa = repositorioCaixa;
     }
-    public void CadastrarCaixa()
+    public override EntidadeBase ObterDados()
     {
-        Console.Clear();
         Console.WriteLine("Adicionar Caixa");
         Console.Write("Etiqueta: ");
         string etiqueta = Console.ReadLine()!;
@@ -18,87 +21,134 @@ public class TelaCaixa
         Console.Write("Dias de emprestimo: ");
         int diasDeEmprestimo = Convert.ToInt16(Console.ReadLine()!);
 
+
         Caixa caixa = new Caixa(etiqueta, cor, diasDeEmprestimo);
-        string erros = caixa.Validar();
-        if (erros.Length > 1)
+
+        return caixa;
+    }
+    public override void CadastrarRegistro()
+    {
+        ExibirCabecalho();
+
+        Console.WriteLine();
+
+        Console.WriteLine("Cadastrando Caixa...");
+        Console.WriteLine("--------------------------------------------");
+
+        Console.WriteLine();
+
+        Caixa novoCaixa = (Caixa)ObterDados();
+
+        string erros = novoCaixa.Validar();
+
+        if (erros.Length > 0)
         {
-            Console.WriteLine(erros);
-            Console.ReadLine();
-            CadastrarCaixa();
+            Notificador.ExibirMensagem(erros, ConsoleColor.Red);
+            CadastrarRegistro();
 
             return;
         }
-        repositorioCaixa.AdicionarCaixa(caixa);
+
+        repositorioCaixa.CadastrarRegistro(novoCaixa);
+
+        Notificador.ExibirMensagem("O registro foi concluído com sucesso!", ConsoleColor.Green);
     }
-    public void ListarCaixas()
+    public override void EditarRegistro()
     {
-        Console.Clear();
-        Console.WriteLine("Lista de Caixas");
-        Console.WriteLine("-----------------");
-        Caixa[] caixas = repositorioCaixa.ListarCaixas();
+        ExibirCabecalho();
+
+        Console.WriteLine();
+
+        Console.WriteLine("Editando Caixa...");
+        Console.WriteLine("--------------------------------------------");
+
+        VisualizarRegistros(false);
+
+        Console.Write("Digite o ID do registro que deseja selecionar: ");
+        int idSelecionado = Convert.ToInt32(Console.ReadLine());
+
+        Caixa caixaAntigo = (Caixa)repositorioCaixa.SelecionarRegistroPorId(idSelecionado);
+
+        Console.WriteLine();
+
+        Caixa caixaEditado = (Caixa)ObterDados();
+
+        bool conseguiuEditar = repositorioCaixa.EditarRegistro(idSelecionado, caixaEditado);
+
+        if (!conseguiuEditar)
+        {
+            Notificador.ExibirMensagem("Houve um erro durante a edição de um registro...", ConsoleColor.Red);
+
+            return;
+        }
+
+        Notificador.ExibirMensagem("O registro foi editado com sucesso!", ConsoleColor.Green);
+    }
+    public override void ExcluirRegistro()
+    {
+        ExibirCabecalho();
+
+        Console.WriteLine();
+
+        Console.WriteLine("Excluindo Caixa...");
+        Console.WriteLine("--------------------------------------------");
+
+        VisualizarRegistros(false);
+
+        Console.Write("Digite o ID do registro que deseja selecionar: ");
+        int idSelecionado = Convert.ToInt32(Console.ReadLine());
+
+        Caixa caixaSelecionado = (Caixa)repositorioCaixa.SelecionarRegistroPorId(idSelecionado);
+
+        bool conseguiuExcluir = repositorioCaixa.ExcluirRegistro(idSelecionado);
+
+        if (!conseguiuExcluir)
+        {
+            Notificador.ExibirMensagem("Houve um erro durante a exclusão de um registro...", ConsoleColor.Red);
+
+            return;
+        }
+
+        Notificador.ExibirMensagem("O registro foi excluído com sucesso!", ConsoleColor.Green);
+    }
+    public override void VisualizarRegistros(bool exibirTitulo)
+    {
+        if (exibirTitulo)
+            ExibirCabecalho();
+
+        Console.WriteLine();
+
+        Console.WriteLine("Visualizando Caixas...");
+        Console.WriteLine("--------------------------------------------");
+
+        Console.WriteLine();
+
         Console.WriteLine(
             "{0, -6} | {1, -20} | {2, -20} | {3, -20} | {4, -15}",
             "ID", "Etiqueta", "Dias de Emprestimo", "Cor", "Quantidade de Revistas"
             );
-        for (int i = 0; i < caixas.Length; i++)
-        {
-            if (caixas[i] == null) continue;
-            Console.WriteLine(
-                "{0, -6} | {1, -20} | {2, -20} | {3, -20} | {4, -15}",
-                caixas[i].Id, caixas[i].Etiqueta, caixas[i].DiasDeEmprestimo, caixas[i].Cor, caixas[i].ObterQuantidadeRevistas()
-            );
-        }
-        Console.ReadLine();
-    }
-    public void RemoverCaixa()
-    {
-        Console.Clear();
-        Console.WriteLine("Remover Caixa");
-        ListarCaixas();
-        Console.Write("ID: ");
-        int id = Convert.ToInt16(Console.ReadLine()!);
-        Caixa caixa = repositorioCaixa.BuscarCaixa(id);
-        if(caixa.Revistas.Length > 0)
-        {
-            Console.WriteLine("Caixa não pode ser removido, pois possui revistas.");
-            Console.ReadLine();
-            return;
-        }
-        if (caixa != null)
-        {
-            repositorioCaixa.RemoverCaixa(caixa);
-            Console.WriteLine("Caixa removido com sucesso!");
-        }
-        else
-        {
-            Console.WriteLine("Caixa não encontrado.");
-        }
-        Console.ReadLine();
-    }
-    public void EditarCaixa()
-    {
-        Console.Clear();
-        Console.WriteLine("Editar Caixa");
-        ListarCaixas();
-        Console.Write("ID: ");
-        int id = Convert.ToInt16(Console.ReadLine()!);
-        Caixa caixa = repositorioCaixa.BuscarCaixa(id);
-        if (caixa != null)
-        {
-            Console.Write("Etiqueta: ");
-            string novoEtiqueta = Console.ReadLine()!;
-            Console.Write("Cor: ");
-            string novoCor = Console.ReadLine()!;
-            Console.Write("Dias de emprestimo: ");
-            int novoDiasDeEmprestimo = Convert.ToInt16(Console.ReadLine()!);
 
-            repositorioCaixa.EditarCaixa(caixa, novoEtiqueta, novoCor, novoDiasDeEmprestimo);
-            Console.WriteLine("Caixa editado com sucesso!");
-        }
-        else
+        EntidadeBase[] registros = repositorioCaixa.SelecionarRegistros();
+
+        Caixa[] caixasCadastrados = new Caixa[registros.Length];
+
+        for (int i = 0; i < registros.Length; i++)
+            caixasCadastrados[i] = (Caixa)registros[i];
+
+        for (int i = 0; i < caixasCadastrados.Length; i++)
         {
-            Console.WriteLine("Caixa não encontrado.");
+            Caixa caixas = caixasCadastrados[i];
+
+            if (caixas == null) continue;
+
+            Console.WriteLine(
+               "{0, -6} | {1, -20} | {2, -20} | {3, -20} | {4, -15}",
+               caixas.Id, caixas.Etiqueta, caixas.DiasDeEmprestimo, caixas.Cor, caixas.ObterQuantidadeRevistas()
+           );
         }
-        Console.ReadLine();
+
+        Console.WriteLine();
+
+        Notificador.ExibirMensagem("Pressione ENTER para continuar...", ConsoleColor.DarkYellow);
     }
 }

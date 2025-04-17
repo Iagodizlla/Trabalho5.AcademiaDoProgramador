@@ -1,8 +1,10 @@
-﻿using Trabalho5.AP.ModuloRevista;
+﻿using Trabalho5.AP.Compartilhado;
+using Trabalho5.AP.ModuloAmigo;
+using Trabalho5.AP.ModuloRevista;
 
 namespace Trabalho5.AP.ModuloCaixa
 {
-    public class Caixa
+    public class Caixa : EntidadeBase
     {
         public int Id { get; set; }
         public string Etiqueta { get; set; }
@@ -49,7 +51,15 @@ namespace Trabalho5.AP.ModuloCaixa
             }
             return contador;
         }
-        public string Validar()
+        public override void AtualizarRegistro(EntidadeBase registroAtualizado)
+        {
+            Caixa caixaAtualizado = (Caixa)registroAtualizado;
+
+            Etiqueta = caixaAtualizado.Etiqueta;
+            Cor = caixaAtualizado.Cor;
+            DiasDeEmprestimo = caixaAtualizado.DiasDeEmprestimo;
+        }
+        public override string Validar()
         {
             string erros = "";
 

@@ -10,21 +10,6 @@ public class TelaAmigo : TelaBase
     {
         this.repositorioAmigo = repositorioAmigo;
     }
-    public override EntidadeBase ObterDados()
-    {
-        Console.WriteLine("Adicionar Amigo");
-        Console.Write("Nome: ");
-        string nome = Console.ReadLine()!;
-        Console.Write("Telefone: ");
-        string telefone = Console.ReadLine()!;
-        Console.Write("Responsável: ");
-        string responsavel = Console.ReadLine()!;
-
-
-        Amigo amigo = new Amigo(nome, telefone, responsavel);
-
-        return amigo;
-    }
     public override void CadastrarRegistro()
     {
         ExibirCabecalho();
@@ -52,6 +37,21 @@ public class TelaAmigo : TelaBase
         repositorioAmigo.CadastrarRegistro(novoAmigo);
 
         Notificador.ExibirMensagem("O registro foi concluído com sucesso!", ConsoleColor.Green);
+    }
+    public override EntidadeBase ObterDados()
+    {
+        Console.WriteLine("Adicionar Amigo");
+        Console.Write("Nome: ");
+        string nome = Console.ReadLine()!;
+        Console.Write("Telefone: ");
+        string telefone = Console.ReadLine()!;
+        Console.Write("Responsável: ");
+        string responsavel = Console.ReadLine()!;
+
+
+        Amigo amigo = new Amigo(nome, telefone, responsavel);
+
+        return amigo;
     }
     public override void EditarRegistro()
     {
