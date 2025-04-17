@@ -69,8 +69,8 @@ namespace Trabalho5.AP.ModuloCaixa
             if (Etiqueta.Length > 50)
                 erros += "O campo 'Etiqueta' precisa conter ao maximo 50 caracteres.\n";
 
-            //if (DiasDeEmprestimo < 0 )
-            //   erros += "O campo 'Dias de Emprestimo' deve ser positivo.";
+            if (DiasDeEmprestimo < 0 )
+               erros += "O campo 'Dias de Emprestimo' deve ser positivo.";
 
             return erros;
         }

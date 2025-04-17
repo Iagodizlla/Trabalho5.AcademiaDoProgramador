@@ -1,21 +1,20 @@
-﻿using Trabalho5.AP.ModuloCaixa;
+﻿using Trabalho5.AP.Compartilhado;
+using Trabalho5.AP.ModuloCaixa;
+using Trabalho5.AP.Util;
 
 namespace Trabalho5.AP.ModuloRevista;
 
-public class TelaRevista
+public class TelaRevista : TelaBase
 {
     RepositorioRevista repositorioRevista;
     RepositorioCaixa repositorioCaixa;
-    public TelaRevista(RepositorioRevista repositorioRevista, RepositorioCaixa repositorioCaixa)
+    public TelaRevista(RepositorioRevista repositorioRevista, RepositorioCaixa repositorioCaixa) : base("Revista", repositorioRevista)
     {
         this.repositorioRevista = repositorioRevista;
         this.repositorioCaixa = repositorioCaixa;
     }
-    public void CadastrarRevista()
+    public override EntidadeBase ObterDados()
     {
-        Console.Clear();
-        Console.WriteLine("Cadastro de Revista");
-
         Console.Write("Titulo: ");
         string titulo = Console.ReadLine()!;
 
@@ -27,122 +26,175 @@ public class TelaRevista
         Console.Write("Data de publicacao: ");
         DateTime anoPublicacao = Convert.ToDateTime(Console.ReadLine()!);
 
-        ListarCaixas();
+        VisualizarCaixas();
         Console.Write("Id da Caixa: ");
-        int id = Convert.ToInt16(Console.ReadLine()!);
-        Caixa caixa = repositorioCaixa.BuscarCaixa(id);
+        int idCaixa = Convert.ToInt16(Console.ReadLine()!);
+        Caixa caixaSelecionado = (Caixa)repositorioCaixa.SelecionarRegistroPorId(idCaixa);
 
-        Revista revista = new Revista(titulo, statusEmprestimo, caixa, numeroEdicao, anoPublicacao);
-        string erros = revista.Validar();
-        erros += repositorioRevista.ValidarRevista(titulo, numeroEdicao);
+
+        Revista revista = new Revista(titulo, statusEmprestimo, caixaSelecionado, numeroEdicao, anoPublicacao);
+
+        return revista;
+    }
+    public override void CadastrarRegistro()
+    {
+        ExibirCabecalho();
+
+        Console.WriteLine();
+
+        Console.WriteLine("Cadastrando Revista...");
+        Console.WriteLine("--------------------------------------------");
+
+        Console.WriteLine();
+
+        Revista novoRevista = (Revista)ObterDados();
+
+        string erros = novoRevista.Validar();
+
         if (erros.Length > 0)
         {
-            Console.WriteLine(erros);
-            Console.ReadLine();
-            CadastrarRevista();
-            
+            Notificador.ExibirMensagem(erros, ConsoleColor.Red);
+            CadastrarRegistro();
             return;
         }
-        repositorioRevista.AdicionarRevista(revista);
-        caixa.AdicionarRevista(revista);
+
+        repositorioRevista.CadastrarRegistro(novoRevista);
+
+        Notificador.ExibirMensagem("O registro foi concluído com sucesso!", ConsoleColor.Green);
     }
-    public void ListarCaixas()
+    public override void EditarRegistro()
     {
-        Console.Clear();
-        Console.WriteLine("Lista de Caixas");
-        Console.WriteLine("-----------------");
-        Caixa[] caixas = repositorioCaixa.ListarCaixas();
-        Console.WriteLine(
-            "{0, -6} | {1, -20} | {2, -20} | {3, -20}",
-            "ID", "Etiqueta", "Dias de Emprestimo", "Cor"
-            );
-        for (int i = 0; i < caixas.Length; i++)
+        ExibirCabecalho();
+
+        Console.WriteLine();
+
+        Console.WriteLine("Editando Revista...");
+        Console.WriteLine("--------------------------------------------");
+
+        VisualizarRegistros(false);
+
+        Console.Write("Digite o ID do registro que deseja selecionar: ");
+        int idSelecionado = Convert.ToInt32(Console.ReadLine());
+
+        Revista amigoAntigo = (Revista)repositorioRevista.SelecionarRegistroPorId(idSelecionado);
+
+        Console.WriteLine();
+
+        Revista amigoEditado = (Revista)ObterDados();
+
+        bool conseguiuEditar = repositorioRevista.EditarRegistro(idSelecionado, amigoEditado);
+
+        if (!conseguiuEditar)
         {
-            if (caixas[i] == null) continue;
-            Console.WriteLine(
-                "{0, -6} | {1, -20} | {2, -20} | {3, -20}",
-                caixas[i].Id, caixas[i].Etiqueta, caixas[i].DiasDeEmprestimo, caixas[i].Cor
-            );
+            Notificador.ExibirMensagem("Houve um erro durante a edição de um registro...", ConsoleColor.Red);
+
+            return;
         }
-        Console.ReadLine();
+
+        Notificador.ExibirMensagem("O registro foi editado com sucesso!", ConsoleColor.Green);
     }
-    public void EditarRevista()
+    public override void ExcluirRegistro()
     {
-        Console.Clear();
-        Console.WriteLine("Editar Revista");
+        ExibirCabecalho();
 
-        string statusEmprestimo = repositorioRevista.EditarSituacao();
+        Console.WriteLine();
 
-        ListarRevistas();
-        Console.Write("ID: ");
-        int id = Convert.ToInt16(Console.ReadLine()!);
-        Revista revista = repositorioRevista.BuscarRevista(id, statusEmprestimo);
-        Caixa caixa1 = revista.Caixa;
-        caixa1.RemoverRevista(revista);
+        Console.WriteLine("Excluindo Revista...");
+        Console.WriteLine("--------------------------------------------");
 
-        if (revista != null)
+        VisualizarRegistros(false);
+
+        Console.Write("Digite o ID do registro que deseja selecionar: ");
+        int idSelecionado = Convert.ToInt32(Console.ReadLine());
+
+        Revista amigoSelecionado = (Revista)repositorioRevista.SelecionarRegistroPorId(idSelecionado);
+
+        bool conseguiuExcluir = repositorioRevista.ExcluirRegistro(idSelecionado);
+
+        if (!conseguiuExcluir)
         {
-            Console.Write("Titulo: ");
-            string titulo = Console.ReadLine()!;
-            Console.Write("Numero de edicao: ");
-            int numeroEdicao = Convert.ToInt32(Console.ReadLine()!);
-            Console.Write("Ano de publicacao: ");
-            DateTime anoPublicacao = Convert.ToDateTime(Console.ReadLine()!);
+            Notificador.ExibirMensagem("Houve um erro durante a exclusão de um registro...", ConsoleColor.Red);
 
-            ListarCaixas();
-            Console.Write("Id da Caixa: ");
-            int idR = Convert.ToInt16(Console.ReadLine()!);
-            Caixa caixa = repositorioCaixa.BuscarCaixa(idR);
+            return;
+        }
 
-            repositorioRevista.EditarRevista(revista, titulo, statusEmprestimo, caixa, numeroEdicao, anoPublicacao);
-            Console.WriteLine("Revista editado com sucesso!");
-            caixa.AdicionarRevista(revista);
-        }
-        else
-        {
-            Console.WriteLine("Revista não encontrado.");
-        }
-        Console.ReadLine();
+        Notificador.ExibirMensagem("O registro foi excluído com sucesso!", ConsoleColor.Green);
     }
-    public void RemoverRevista()
+    public override void VisualizarRegistros(bool exibirTitulo)
     {
-        Console.Clear();
-        Console.WriteLine("Remover Revista");
-        ListarRevistas();
-        Console.Write("ID: ");
-        int id = Convert.ToInt16(Console.ReadLine()!);
-        Revista revista = repositorioRevista.BuscarRevista(id, "");
-        Caixa caixa1 = revista.Caixa;
-        caixa1.RemoverRevista(revista);
-        if (revista != null)
-        {
-            repositorioRevista.RemoverRevista(revista);
-            Console.WriteLine("Revista removido com sucesso!");
-        }
-        else
-        {
-            Console.WriteLine("Revista não encontrado.");
-        }
-        Console.ReadLine();
-    }
-    public void ListarRevistas()
-    {
-        Console.Clear();
-        Console.WriteLine("Lista de Revistas");
-        Console.WriteLine("-----------------");
-        Revista[] revistas = repositorioRevista.ListarRevistas();
+        if (exibirTitulo)
+            ExibirCabecalho();
+
+        Console.WriteLine();
+
+        Console.WriteLine("Visualizando Revistas...");
+        Console.WriteLine("--------------------------------------------");
+
+        Console.WriteLine();
+
         Console.WriteLine(
             "{0, -6} | {1, -20} | {2, -15} | {3, -15} | {4, -20} | {5, -20}",
             "ID", "titulo", "Status", "Numero Edicao", "Ano Publicacao", "Etiqueta Caixa"
             );
-        for (int i = 0; i < revistas.Length; i++)
+
+        EntidadeBase[] registros = repositorioRevista.SelecionarRegistros();
+
+        Revista[] revistasCadastrados = new Revista[registros.Length];
+
+        for (int i = 0; i < registros.Length; i++)
+            revistasCadastrados[i] = (Revista)registros[i];
+
+        for (int i = 0; i < revistasCadastrados.Length; i++)
         {
-            if (revistas[i] == null) continue;
+            Revista revistas = revistasCadastrados[i];
+
+            if (revistas == null) continue;
+
             Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -15} | {3, -15} | {4, -20} | {5, -20}",
-                revistas[i].Id, revistas[i].Titulo, revistas[i].StatusEmprestimo, revistas[i].NumeroEdicao, revistas[i].AnoPublicacao.Year, revistas[i].Caixa.Etiqueta
+                revistas.Id, revistas.Titulo, revistas.StatusEmprestimo, revistas.NumeroEdicao, revistas.AnoPublicacao.Year, revistas.Caixa.Etiqueta
             );
         }
-        Console.ReadLine();
+
+        Console.WriteLine();
+
+        Notificador.ExibirMensagem("Pressione ENTER para continuar...", ConsoleColor.DarkYellow);
+    }
+    public void VisualizarCaixas()
+    {
+        Console.WriteLine();
+
+        Console.WriteLine("Visualizando Caixas...");
+        Console.WriteLine("--------------------------------------------");
+
+        Console.WriteLine();
+
+        Console.WriteLine(
+            "{0, -6} | {1, -20} | {2, -20} | {3, -20}",
+            "ID", "Etiqueta", "Dias de Emprestimo", "Cor"
+            );
+
+        EntidadeBase[] registros = repositorioCaixa.SelecionarRegistros();
+
+        Caixa[] caixasCadastrados = new Caixa[registros.Length];
+
+        for (int i = 0; i < registros.Length; i++)
+            caixasCadastrados[i] = (Caixa)registros[i];
+
+        for (int i = 0; i < caixasCadastrados.Length; i++)
+        {
+            Caixa c = caixasCadastrados[i];
+
+            if (c == null) continue;
+
+            Console.WriteLine(
+                "{0, -6} | {1, -20} | {2, -20} | {3, -20}",
+                c.Id, c.Etiqueta, c.DiasDeEmprestimo, c.Cor
+            );
+        }
+
+        Console.WriteLine();
+
+        Notificador.ExibirMensagem("Pressione ENTER para continuar...", ConsoleColor.DarkYellow);
     }
 }

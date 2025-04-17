@@ -1,8 +1,9 @@
-﻿using Trabalho5.AP.ModuloCaixa;
+﻿using Trabalho5.AP.Compartilhado;
+using Trabalho5.AP.ModuloCaixa;
 
 namespace Trabalho5.AP.ModuloRevista;
 
-public class Revista
+public class Revista : EntidadeBase
 {
     public int Id { get; set; }
     public string Titulo { get; set; }
@@ -18,7 +19,7 @@ public class Revista
         NumeroEdicao = numeroEdicao;
         AnoPublicacao = anoPublicacao;
     }
-    public string Validar()
+    public override string Validar()
     {
         string erros = "";
 
@@ -38,5 +39,14 @@ public class Revista
             erros += "O campo 'Numero de Edicao' deve ser positivo.";
 
         return erros;
+    }
+    public override void AtualizarRegistro(EntidadeBase registroAtualizado)
+    {
+        Revista revistaAtualizado = (Revista)registroAtualizado;
+
+        Titulo = revistaAtualizado.Titulo;
+        NumeroEdicao = revistaAtualizado.NumeroEdicao;
+        Caixa = revistaAtualizado.Caixa;
+        AnoPublicacao = revistaAtualizado .AnoPublicacao;
     }
 }
