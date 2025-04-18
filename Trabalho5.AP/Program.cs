@@ -2,7 +2,6 @@
 using Trabalho5.AP.ModuloCaixa;
 using Trabalho5.AP.ModuloEmprestimo;
 using Trabalho5.AP.ModuloRevista;
-using Trabalho5.AP.ModuloMulta;
 using Trabalho5.AP.NovaPasta;
 
 namespace Trabalho5.AP;
@@ -17,12 +16,10 @@ public class Program
         RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
         RepositorioRevista repositorioRevista = new RepositorioRevista();
         RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
-        RepositorioMulta repositorioMulta = new RepositorioMulta();
 
         TelaAmigo telaAmigo = new TelaAmigo(repositorioAmigo);
         TelaCaixa telaCaixa = new TelaCaixa(repositorioCaixa);
         TelaRevista telaRevista = new TelaRevista(repositorioRevista, repositorioCaixa);
-        TelaMulta telaMulta = new TelaMulta(repositorioMulta, repositorioEmprestimo);
         TelaEmprestimo telaEmprestimo = new TelaEmprestimo(repositorioEmprestimo, repositorioAmigo, repositorioRevista);
         #endregion
         bool continuar = true;
@@ -37,10 +34,10 @@ public class Program
                     char opcao = menu.MostrarMenuAmigo();
                     switch (opcao)
                     {
-                        case '1': telaAmigo.CadastrarAmigo(); break;
-                        case '2': telaAmigo.RemoverAmigo(); break;
-                        case '3': telaAmigo.ListarAmigos(); break;
-                        case '4': telaAmigo.EditarAmigo(); break;
+                        case '1': telaAmigo.CadastrarRegistro(); break;
+                        case '2': telaAmigo.ExcluirRegistro(); break;
+                        case '3': telaAmigo.VisualizarRegistros(true); break;
+                        case '4': telaAmigo.EditarRegistro(); break;
                         case 'S': continuar = false; break;
                         default: Console.WriteLine("Opção inválida."); Console.ReadLine(); break;
                     }
@@ -53,10 +50,10 @@ public class Program
                     char opcao = menu.MostrarMenuCaixa();
                     switch (opcao)
                     {
-                        case '1': telaCaixa.CadastrarCaixa(); break;
-                        case '2': telaCaixa.RemoverCaixa(); break;
-                        case '3': telaCaixa.ListarCaixas(); break;
-                        case '4': telaCaixa.EditarCaixa(); break;
+                        case '1': telaCaixa.CadastrarRegistro(); break;
+                        case '2': telaCaixa.ExcluirRegistro(); break;
+                        case '3': telaCaixa.VisualizarRegistros(true); break;
+                        case '4': telaCaixa.EditarRegistro(); break;
                         case 'S':  continuar = false; break;
                         default: Console.WriteLine("Opção inválida."); Console.ReadLine(); break;
                     }
@@ -69,10 +66,10 @@ public class Program
                     char opcao = menu.MostrarMenuRevista();
                     switch (opcao)
                     {
-                        case '1': telaRevista.CadastrarRevista(); break;
-                        case '2': telaRevista.RemoverRevista(); break;
-                        case '3': telaRevista.ListarRevistas(); break;
-                        case '4': telaRevista.EditarRevista(); break;
+                        case '1': telaRevista.CadastrarRegistro(); break;
+                        case '2': telaRevista.ExcluirRegistro(); break;
+                        case '3': telaRevista.VisualizarRegistros(true); break;
+                        case '4': telaRevista.EditarRegistro(); break;
                         case 'S': continuar = false; break;
                         default: Console.WriteLine("Opção inválida."); Console.ReadLine(); break;
                     }
@@ -85,26 +82,12 @@ public class Program
                     char opcao = menu.MostrarMenuEmprestimo();
                     switch (opcao)
                     {
-                        case '1': telaEmprestimo.CadastrarEmprestimo(); break;
-                        case '2': telaEmprestimo.RemoverEmprestimo(); break;
-                        case '3': telaEmprestimo.ListarEmprestimos(); break;
-                        case '4': telaEmprestimo.EditarEmprestimo(); break;
+                        case '1': telaEmprestimo.CadastrarRegistro(); break;
+                        case '2': telaEmprestimo.ExcluirRegistro(); break;
+                        case '3': telaEmprestimo.VisualizarRegistros(true); break;
+                        case '4': telaEmprestimo.EditarRegistro(); break;
                         case '5': telaEmprestimo.RegistrarDevolucao(); break;
                         case '6': telaEmprestimo.ListarEmprestimosAmigo(); break;
-                        case 'S': continuar = false; break;
-                        default: Console.WriteLine("Opção inválida."); Console.ReadLine(); break;
-                    }
-                }
-            }
-            else if(opcaoP == '5')
-            {
-                while (continuar)
-                {
-                    char opcao = menu.MostrarMenuMulta();
-                    switch (opcao)
-                    {
-                        case '1': telaMulta.ListarMultasAbertas(); break;
-                        case '2': telaMulta.QuitarMulta(); break;
                         case 'S': continuar = false; break;
                         default: Console.WriteLine("Opção inválida."); Console.ReadLine(); break;
                     }

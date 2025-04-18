@@ -10,7 +10,6 @@ public class Menu
         Console.WriteLine("2. Gerenciar Caixas");
         Console.WriteLine("3. Gerenciar Revistas");
         Console.WriteLine("4. Gerenciar Emprestimos");
-        Console.WriteLine("5. Gerenciar Multas");
         Console.WriteLine("S. Sair");
         Console.Write("Escolha uma opção: ");
 
@@ -71,18 +70,6 @@ public class Menu
         Console.WriteLine("4. Editar Emprestimo");
         Console.WriteLine("5. Registrar Devolucao");
         Console.WriteLine("6. Mostrar Emprestimos de um Amigo");
-        Console.WriteLine("S. Voltar");
-        Console.Write("Escolha uma opção: ");
-
-        char opcao = Console.ReadLine()!.ToUpper()[0];
-        return opcao;
-    }
-    public char MostrarMenuMulta()
-    {
-        Console.Clear();
-        Console.WriteLine("Menu de Multas");
-        Console.WriteLine("1. Listar Multas em Aberto");
-        Console.WriteLine("2. Quitar Multas");
         Console.WriteLine("S. Voltar");
         Console.Write("Escolha uma opção: ");
 
