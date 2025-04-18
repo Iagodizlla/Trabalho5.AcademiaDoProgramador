@@ -1,6 +1,5 @@
 ﻿using Trabalho5.AP.Compartilhado;
 using Trabalho5.AP.ModuloAmigo;
-using Trabalho5.AP.ModuloCaixa;
 using Trabalho5.AP.ModuloRevista;
 using Trabalho5.AP.Util;
 
@@ -22,33 +21,26 @@ public class TelaEmprestimo : TelaBase
         ListarAmigos();
         Console.Write("ID: ");
         int idA = Convert.ToInt16(Console.ReadLine()!);
-        Amigo amigo = repositorioAmigo.BuscarAmigo(idA);
+        Amigo amigo = (Amigo)repositorioAmigo.SelecionarRegistroPorId(idA);
         if (repositorioEmprestimo.QuantidadeEmprestimosAmigo(amigo) >= 1)
         {
             Console.WriteLine("Amigo já possui 1 emprestimo ativo.");
             Console.ReadLine();
-            return;
+            return null!;
         }
-            Console.Write("Titulo: ");
-        string titulo = Console.ReadLine()!;
 
-        string statusEmprestimo = repositorioRevista.EditarSituacao();
-
-        Console.Write("Numero de edicao: ");
-        int numeroEdicao = Convert.ToInt32(Console.ReadLine()!);
-
-        Console.Write("Data de publicacao: ");
-        DateTime anoPublicacao = Convert.ToDateTime(Console.ReadLine()!);
-
-        VisualizarCaixas();
+        ListarRevistas();
         Console.Write("Id da Caixa: ");
         int idCaixa = Convert.ToInt16(Console.ReadLine()!);
-        Caixa caixaSelecionado = (Caixa)repositorioCaixa.SelecionarRegistroPorId(idCaixa);
+        Revista revistaSelecionado = (Revista)repositorioRevista.SelecionarRegistroPorId(idCaixa);
+        string situacao = "Aberto";
 
+        DateTime hoje = DateTime.Today;
+        DateTime dataFinal = hoje.AddDays(revistaSelecionado.Caixa.DiasDeEmprestimo);
 
-        Emprestimo revista = new Emprestimo(titulo, statusEmprestimo, caixaSelecionado, numeroEdicao, anoPublicacao);
+        Emprestimo emprestimo = new Emprestimo(amigo, revistaSelecionado, situacao, dataFinal, 0);
 
-        return revista;
+        return emprestimo;
     }
     public override void CadastrarRegistro()
     {
@@ -63,7 +55,7 @@ public class TelaEmprestimo : TelaBase
 
         Emprestimo novoEmprestimo = (Emprestimo)ObterDados();
 
-        string erros = novoRevista.Validar();
+        string erros = novoEmprestimo.Validar();
 
         if (erros.Length > 0)
         {
@@ -84,67 +76,35 @@ public class TelaEmprestimo : TelaBase
         ListarAmigos();
         Console.Write("ID: ");
         int idA = Convert.ToInt16(Console.ReadLine()!);
-        Amigo amigo = repositorioAmigo.BuscarAmigo(idA);
+        Amigo amigo = (Amigo)repositorioAmigo.SelecionarRegistroPorId(idA);
         Console.WriteLine("Lista de Emprestimos");
         Console.WriteLine("-----------------");
-        Emprestimo[] emprestimo = repositorioEmprestimo.ListarEmprestimos();
+
+        EntidadeBase[] registros = repositorioEmprestimo.SelecionarRegistros();
+
+        Emprestimo[] emprestimosCadastrados = new Emprestimo[registros.Length];
+
         Console.WriteLine(
             "{0, -6} | {1, -20} | {2, -20} | {3, -15}",
             "ID", "Nome Amigo", "Titulo Revista", "Situacao"
             );
-        for (int i = 0; i < emprestimo.Length; i++)
+        for (int i = 0; i < emprestimosCadastrados.Length; i++)
         {
-            if (emprestimo[i] == null) continue;
-            if (emprestimo[i].Amigo != amigo) continue;
+            Emprestimo emprestimo = emprestimosCadastrados[i];
+
+            if (emprestimo == null) continue;
+            if (emprestimo.Amigo != amigo) continue;
             Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -20} | {3, -15}",
-                emprestimo[i].Id, emprestimo[i].Amigo.Nome, emprestimo[i].Revista.Titulo, emprestimo[i].Situacao
+                emprestimo.Id, emprestimo.Amigo.Nome, emprestimo.Revista.Titulo, emprestimo.Situacao
             );
         }
         Console.ReadLine();
     }
-    public void CadastrarEmprestimo()
+    public override void VisualizarRegistros(bool exibirTitulo)
     {
-        Console.Clear();
-        Console.WriteLine("Adicionar Emprestimo");
-
-        ListarAmigos();
-        Console.Write("ID: ");
-        int idA = Convert.ToInt16(Console.ReadLine()!);
-        Amigo amigo = repositorioAmigo.BuscarAmigo(idA);
-        if (repositorioEmprestimo.QuantidadeEmprestimosAmigo(amigo) >= 1)
-        {
-            Console.WriteLine("Amigo já possui 1 emprestimo ativo.");
-            Console.ReadLine();
-            return;
-        }
-        string situacao = repositorioEmprestimo.EditarSituacao();
-
-        ListarRevistas();
-        Console.Write("ID: ");
-        int idR = Convert.ToInt16(Console.ReadLine()!);
-        Revista revista = repositorioRevista.BuscarRevista(idR, situacao);
-
-        DateTime hoje = DateTime.Today;
-        DateTime dataFinal = hoje.AddDays(revista.Caixa.DiasDeEmprestimo);
-
-        Emprestimo emprestimo = new Emprestimo(amigo, revista, situacao, dataFinal, 0);
-        
-        string erros = emprestimo.Validar();
-        if (erros.Length > 0)
-        {
-            Console.WriteLine(erros);
-            Console.ReadLine();
-            CadastrarEmprestimo();
-
-            return;
-        }
-        repositorioEmprestimo.AdicionarEmprestimo(emprestimo);
-        amigo.AdicionarEmprestimo(emprestimo);
-    }
-    public void ListarEmprestimos()
-    {
-        Console.Clear();
+        if (exibirTitulo)
+            ExibirCabecalho();
         string situacaoescolhida;
         Console.WriteLine("1. Aberto\n2. Concluído\n3. Atrasado\n4. Geral");
         char opcao = Console.ReadLine()!.ToUpper()[0];
@@ -155,58 +115,82 @@ public class TelaEmprestimo : TelaBase
             case '3': situacaoescolhida = "Atrasado"; break;
             default: situacaoescolhida = "Geral"; break;
         }
-        Console.WriteLine("Lista de Emprestimos");
-        Console.WriteLine("-----------------");
-        Emprestimo[] emprestimo = repositorioEmprestimo.ListarEmprestimos();
+        Console.WriteLine();
+
+        Console.WriteLine("Visualizando Emprestimos...");
+        Console.WriteLine("--------------------------------------------");
+
+        Console.WriteLine();
+
         Console.WriteLine(
             "{0, -6} | {1, -20} | {2, -20} | {3, -15} | {4, -15}",
             "ID", "Nome Amigo", "Titulo Revista", "Situacao", "Data Restante"
             );
-        for (int i = 0; i < emprestimo.Length; i++)
+
+        EntidadeBase[] registros = repositorioEmprestimo.SelecionarRegistros();
+
+        Emprestimo[] emprestimosCadastrados = new Emprestimo[registros.Length];
+
+        for (int i = 0; i < registros.Length; i++)
+            emprestimosCadastrados[i] = (Emprestimo)registros[i];
+
+        for (int i = 0; i < emprestimosCadastrados.Length; i++)
         {
-            if (emprestimo[i] == null) continue;
-            if (emprestimo[i].Situacao != situacaoescolhida && situacaoescolhida != "Geral") continue;
-            TimeSpan Data = emprestimo[i].DataFinal - DateTime.Today;
+            Emprestimo emprestimo = emprestimosCadastrados[i];
+
+            if (emprestimo == null) continue;
+            if (emprestimo.Situacao != situacaoescolhida && situacaoescolhida != "Geral") continue;
+            TimeSpan Data = emprestimo.DataFinal - DateTime.Today;
             int data = Convert.ToInt32(Data.Days);
-            if (data < 0)emprestimo[i].Situacao = "Atrasado";
-            
-                Console.WriteLine(
-                "{0, -6} | {1, -20} | {2, -20} | {3, -15} | {4, -15}",
-                emprestimo[i].Id, emprestimo[i].Amigo.Nome, emprestimo[i].Revista.Titulo, emprestimo[i].Situacao, data
+            if (data < 0) emprestimo.Situacao = "Atrasado";
+
+            Console.WriteLine(
+            "{0, -6} | {1, -20} | {2, -20} | {3, -15} | {4, -15}",
+                emprestimo.Id, emprestimo.Amigo.Nome, emprestimo.Revista.Titulo, emprestimo.Situacao, data
                 );
         }
-        Console.ReadLine();
+
+        Console.WriteLine();
+
+        Notificador.ExibirMensagem("Pressione ENTER para continuar...", ConsoleColor.DarkYellow);
     }
-    public void RemoverEmprestimo()
+    public override void ExcluirRegistro()
     {
-        Console.Clear();
-        Console.WriteLine("Remover Emprestimo");
-        ListarEmprestimos();
-        Console.Write("ID: ");
-        int id = Convert.ToInt16(Console.ReadLine()!);
-        Emprestimo emprestimo = repositorioEmprestimo.BuscarEmprestimo(id);
-        Amigo amigo1 = emprestimo.Amigo;
-        amigo1.RemoverEmprestimo(emprestimo);
-        if (emprestimo != null)
+        ExibirCabecalho();
+
+        Console.WriteLine();
+
+        Console.WriteLine("Excluindo Emprestimo...");
+        Console.WriteLine("--------------------------------------------");
+
+        VisualizarRegistros(false);
+
+        Console.Write("Digite o ID do registro que deseja selecionar: ");
+        int idSelecionado = Convert.ToInt32(Console.ReadLine());
+
+        bool conseguiuExcluir = repositorioRevista.ExcluirRegistro(idSelecionado);
+
+        if (!conseguiuExcluir)
         {
-            repositorioEmprestimo.RemoverEmprestimo(emprestimo);
-            Console.WriteLine("Emprestimo removido com sucesso!");
+            Notificador.ExibirMensagem("Houve um erro durante a exclusão de um registro...", ConsoleColor.Red);
+
+            return;
         }
-        else
-        {
-            Console.WriteLine("Emprestimo não encontrado.");
-        }
-        Console.ReadLine();
+        Emprestimo emprestimoSelecionado = (Emprestimo)repositorioRevista.SelecionarRegistroPorId(idSelecionado);
+        Amigo amigo = emprestimoSelecionado.Amigo;
+        amigo.RemoverEmprestimo(emprestimoSelecionado);
+
+        Notificador.ExibirMensagem("O registro foi excluído com sucesso!", ConsoleColor.Green);
     }
     public void RegistrarDevolucao()
     {
         Console.Clear();
         Console.WriteLine("Registrar Devolucao");
 
-        ListarEmprestimos();
+        VisualizarRegistros(false);
         Console.Write("ID: ");
         int id = Convert.ToInt16(Console.ReadLine()!);
-        Emprestimo emprestimo = repositorioEmprestimo.BuscarEmprestimo(id);
+        Emprestimo emprestimo = (Emprestimo)repositorioEmprestimo.SelecionarRegistroPorId(id);
         if (emprestimo != null)
         {
             emprestimo.Situacao = "Concluído";
@@ -219,47 +203,44 @@ public class TelaEmprestimo : TelaBase
         }
         Console.ReadLine();
     }
-    public void EditarEmprestimo()
+    public override void EditarRegistro()
     {
-        Console.Clear();
-        Console.WriteLine("Editar Emprestimo");
+        ExibirCabecalho();
 
-        ListarEmprestimos();
-        Console.Write("ID: ");
-        int id = Convert.ToInt16(Console.ReadLine()!);
-        Emprestimo emprestimo = repositorioEmprestimo.BuscarEmprestimo(id);
-        Amigo amigo1 = emprestimo.Amigo;
-        amigo1.RemoverEmprestimo(emprestimo);
-        if (emprestimo != null)
+        Console.WriteLine();
+
+        Console.WriteLine("Editando Emprestimo...");
+        Console.WriteLine("--------------------------------------------");
+
+        VisualizarRegistros(false);
+
+        Console.Write("Digite o ID do registro que deseja selecionar: ");
+        int idSelecionado = Convert.ToInt32(Console.ReadLine());
+
+        Emprestimo emprestimoAntigo = (Emprestimo)repositorioRevista.SelecionarRegistroPorId(idSelecionado);
+
+        Console.WriteLine();
+
+        Emprestimo emprestimoEditado = (Emprestimo)ObterDados();
+
+        bool conseguiuEditar = repositorioRevista.EditarRegistro(idSelecionado, emprestimoEditado);
+
+        if (!conseguiuEditar)
         {
-            ListarAmigos();
-            Console.Write("ID: ");
-            int idA = Convert.ToInt16(Console.ReadLine()!);
-            Amigo novoamigo = repositorioAmigo.BuscarAmigo(idA);
-            novoamigo.AdicionarEmprestimo(emprestimo);
+            Notificador.ExibirMensagem("Houve um erro durante a edição de um registro...", ConsoleColor.Red);
 
-            string novosituacao = repositorioEmprestimo.EditarSituacao();
-
-            ListarRevistas();
-            Console.Write("ID: ");
-            int idR = Convert.ToInt16(Console.ReadLine()!);
-            Revista novorevista = repositorioRevista.BuscarRevista(idR, novosituacao);
-
-            repositorioEmprestimo.EditarEmprestimo(emprestimo, novoamigo, novorevista, novosituacao);
-            Console.WriteLine("Emprestimo editado com sucesso!");
+            return;
         }
-        else
-        {
-            Console.WriteLine("Emprestimo não encontrado.");
-        }
-        Console.ReadLine();
+
+        Notificador.ExibirMensagem("O registro foi editado com sucesso!", ConsoleColor.Green);
     }
     public void ListarAmigos()
     {
         Console.Clear();
         Console.WriteLine("Lista de Amigos");
         Console.WriteLine("-----------------");
-        Amigo[] amigos = repositorioAmigo.ListarAmigos();
+        EntidadeBase[] registros = repositorioAmigo.SelecionarRegistros();
+        Amigo[] amigos = new Amigo[registros.Length];
         Console.WriteLine(
             "{0, -6} | {1, -20} | {2, -20} | {3, -20}",
             "ID", "Nome", "Telefone", "Responsável"
@@ -279,7 +260,9 @@ public class TelaEmprestimo : TelaBase
         Console.Clear();
         Console.WriteLine("Lista de Revistas");
         Console.WriteLine("-----------------");
-        Revista[] revistas = repositorioRevista.ListarRevistas();
+
+        EntidadeBase[] registros = repositorioRevista.SelecionarRegistros();
+        Revista[] revistas = new Revista[registros.Length];
         Console.WriteLine(
             "{0, -6} | {1, -20} | {2, -15} | {3, -15} | {4, -20} | {5, -20}",
             "ID", "titulo", "Status", "Numero Edicao", "Ano Publicacao", "Etiqueta Caixa"

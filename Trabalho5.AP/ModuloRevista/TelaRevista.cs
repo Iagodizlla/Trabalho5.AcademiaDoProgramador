@@ -76,13 +76,13 @@ public class TelaRevista : TelaBase
         Console.Write("Digite o ID do registro que deseja selecionar: ");
         int idSelecionado = Convert.ToInt32(Console.ReadLine());
 
-        Revista amigoAntigo = (Revista)repositorioRevista.SelecionarRegistroPorId(idSelecionado);
+        Revista revistaAntigo = (Revista)repositorioRevista.SelecionarRegistroPorId(idSelecionado);
 
         Console.WriteLine();
 
-        Revista amigoEditado = (Revista)ObterDados();
+        Revista revistaEditado = (Revista)ObterDados();
 
-        bool conseguiuEditar = repositorioRevista.EditarRegistro(idSelecionado, amigoEditado);
+        bool conseguiuEditar = repositorioRevista.EditarRegistro(idSelecionado, revistaEditado);
 
         if (!conseguiuEditar)
         {

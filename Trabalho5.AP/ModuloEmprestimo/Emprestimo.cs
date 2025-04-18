@@ -1,9 +1,10 @@
 ﻿using Trabalho5.AP.ModuloAmigo;
 using Trabalho5.AP.ModuloRevista;
+using Trabalho5.AP.Compartilhado;
 
 namespace Trabalho5.AP.ModuloEmprestimo;
 
-public class Emprestimo
+public class Emprestimo : EntidadeBase
 {
     public int Id { get; set; }
     public Amigo Amigo { get; set; }
@@ -33,5 +34,12 @@ public class Emprestimo
             erros += "O campo 'Revista' é obrigatório.\n";
 
         return erros;
+    }
+    public override void AtualizarRegistro(EntidadeBase registroAtualizado)
+    {
+        Emprestimo emprestimoAtualizado = (Emprestimo)registroAtualizado;
+
+        Amigo = emprestimoAtualizado.Amigo;
+        Revista = emprestimoAtualizado.Revista;
     }
 }
