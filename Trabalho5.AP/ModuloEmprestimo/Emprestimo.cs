@@ -19,7 +19,7 @@ public class Emprestimo
         DataFinal = dataFinal;
         Multa = multa;
     }
-    public string Validar()
+    public override string Validar()
     {
         string erros = "";
 

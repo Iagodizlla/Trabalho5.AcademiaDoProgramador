@@ -2,7 +2,7 @@
 
 namespace Trabalho5.AP.Compartilhado;
 
-public class TelaBase
+public abstract class TelaBase
 {
     protected string nomeEntidade;
     private RepositorioBase repositorio;

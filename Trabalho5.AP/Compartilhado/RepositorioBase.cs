@@ -1,6 +1,6 @@
 ﻿namespace Trabalho5.AP.Compartilhado;
 
-public class RepositorioBase
+public abstract class RepositorioBase
 {
     private EntidadeBase[] registros = new EntidadeBase[100];
     private int contadorIds = 0;
