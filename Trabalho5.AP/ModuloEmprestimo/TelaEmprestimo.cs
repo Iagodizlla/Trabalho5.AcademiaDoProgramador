@@ -2,6 +2,8 @@
 using Trabalho5.AP.ModuloAmigo;
 using Trabalho5.AP.ModuloRevista;
 using Trabalho5.AP.Util;
+using System.Collections;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Trabalho5.AP.ModuloEmprestimo;
 
@@ -80,25 +82,22 @@ public class TelaEmprestimo : TelaBase
         Console.WriteLine("Lista de Emprestimos");
         Console.WriteLine("-----------------");
 
-        EntidadeBase[] registros = repositorioEmprestimo.SelecionarRegistros();
-
-        Emprestimo[] emprestimosCadastrados = new Emprestimo[registros.Length];
-
         Console.WriteLine(
             "{0, -6} | {1, -20} | {2, -20} | {3, -15}",
             "ID", "Nome Amigo", "Titulo Revista", "Situacao"
-            );
-        for (int i = 0; i < emprestimosCadastrados.Length; i++)
-        {
-            Emprestimo emprestimo = emprestimosCadastrados[i];
+        );
 
-            if (emprestimo == null) continue;
+        ArrayList registros = repositorioEmprestimo.SelecionarRegistros();
+
+        foreach(Emprestimo emprestimo in registros)
+        {
             if (emprestimo.Amigo != amigo) continue;
             Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -20} | {3, -15}",
                 emprestimo.Id, emprestimo.Amigo.Nome, emprestimo.Revista.Titulo, emprestimo.Situacao
             );
         }
+
         Console.ReadLine();
     }
     public override void VisualizarRegistros(bool exibirTitulo)
@@ -127,18 +126,10 @@ public class TelaEmprestimo : TelaBase
             "ID", "Nome Amigo", "Titulo Revista", "Situacao", "Data Restante"
             );
 
-        EntidadeBase[] registros = repositorioEmprestimo.SelecionarRegistros();
+        ArrayList registros = repositorioEmprestimo.SelecionarRegistros();
 
-        Emprestimo[] emprestimosCadastrados = new Emprestimo[registros.Length];
-
-        for (int i = 0; i < registros.Length; i++)
-            emprestimosCadastrados[i] = (Emprestimo)registros[i];
-
-        for (int i = 0; i < emprestimosCadastrados.Length; i++)
+        foreach (Emprestimo emprestimo in registros)
         {
-            Emprestimo emprestimo = emprestimosCadastrados[i];
-
-            if (emprestimo == null) continue;
             if (emprestimo.Situacao != situacaoescolhida && situacaoescolhida != "Geral") continue;
             TimeSpan Data = emprestimo.DataFinal - DateTime.Today;
             int data = Convert.ToInt32(Data.Days);
@@ -147,7 +138,7 @@ public class TelaEmprestimo : TelaBase
             Console.WriteLine(
             "{0, -6} | {1, -20} | {2, -20} | {3, -15} | {4, -15}",
                 emprestimo.Id, emprestimo.Amigo.Nome, emprestimo.Revista.Titulo, emprestimo.Situacao, data
-                );
+            );
         }
 
         Console.WriteLine();
@@ -239,18 +230,18 @@ public class TelaEmprestimo : TelaBase
         Console.Clear();
         Console.WriteLine("Lista de Amigos");
         Console.WriteLine("-----------------");
-        EntidadeBase[] registros = repositorioAmigo.SelecionarRegistros();
-        Amigo[] amigos = new Amigo[registros.Length];
         Console.WriteLine(
             "{0, -6} | {1, -20} | {2, -20} | {3, -20}",
             "ID", "Nome", "Telefone", "Responsável"
             );
-        for (int i = 0; i < amigos.Length; i++)
+        ArrayList registros = repositorioAmigo.SelecionarRegistros();
+        
+
+        foreach(Amigo amigos in registros)
         {
-            if (amigos[i] == null) continue;
             Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -20} | {3, -20}",
-                amigos[i].Id, amigos[i].Nome, amigos[i].Telefone, amigos[i].Responsavel
+                amigos.Id, amigos.Nome, amigos.Telefone, amigos.Responsavel
             );
         }
         Console.ReadLine();
@@ -261,19 +252,22 @@ public class TelaEmprestimo : TelaBase
         Console.WriteLine("Lista de Revistas");
         Console.WriteLine("-----------------");
 
-        EntidadeBase[] registros = repositorioRevista.SelecionarRegistros();
-        Revista[] revistas = new Revista[registros.Length];
         Console.WriteLine(
             "{0, -6} | {1, -20} | {2, -15} | {3, -15} | {4, -20} | {5, -20}",
             "ID", "titulo", "Status", "Numero Edicao", "Ano Publicacao", "Etiqueta Caixa"
-            );
-        for (int i = 0; i < revistas.Length; i++)
+        );
+        ArrayList registros = repositorioRevista.SelecionarRegistros();
+
+        foreach (Revista Revistas in registros)
         {
-            if (revistas[i] == null) continue;
-            Console.WriteLine(
-                "{0, -6} | {1, -20} | {2, -15} | {3, -15} | {4, -20} | {5, -20}",
-                revistas[i].Id, revistas[i].Titulo, revistas[i].StatusEmprestimo, revistas[i].NumeroEdicao, revistas[i].AnoPublicacao.Year, revistas[i].Caixa.Etiqueta
-            );
+            if (Revistas.StatusEmprestimo == "Disponível")
+            {
+                Console.WriteLine(
+                    "{0, -6} | {1, -20} | {2, -15} | {3, -15} | {4, -20} | {5, -20}",
+                    Revistas.Id, Revistas.Titulo, Revistas.StatusEmprestimo, Revistas.NumeroEdicao, Revistas.AnoPublicacao.Year, Revistas.Caixa.Etiqueta
+                );
+            }
+
         }
         Console.ReadLine();
     }
