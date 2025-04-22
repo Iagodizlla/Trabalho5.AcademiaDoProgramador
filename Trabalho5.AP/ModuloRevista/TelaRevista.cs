@@ -1,6 +1,7 @@
 ﻿using Trabalho5.AP.Compartilhado;
 using Trabalho5.AP.ModuloCaixa;
 using Trabalho5.AP.Util;
+using System.Collections;
 
 namespace Trabalho5.AP.ModuloRevista;
 
@@ -137,19 +138,10 @@ public class TelaRevista : TelaBase
             "ID", "titulo", "Status", "Numero Edicao", "Ano Publicacao", "Etiqueta Caixa"
             );
 
-        EntidadeBase[] registros = repositorioRevista.SelecionarRegistros();
+        List<Revista> registros = repositorioRevista.SelecionarRegistros();
 
-        Revista[] revistasCadastrados = new Revista[registros.Length];
-
-        for (int i = 0; i < registros.Length; i++)
-            revistasCadastrados[i] = (Revista)registros[i];
-
-        for (int i = 0; i < revistasCadastrados.Length; i++)
+        foreach(Revista revistas in registros)
         {
-            Revista revistas = revistasCadastrados[i];
-
-            if (revistas == null) continue;
-
             Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -15} | {3, -15} | {4, -20} | {5, -20}",
                 revistas.Id, revistas.Titulo, revistas.StatusEmprestimo, revistas.NumeroEdicao, revistas.AnoPublicacao.Year, revistas.Caixa.Etiqueta
@@ -174,19 +166,10 @@ public class TelaRevista : TelaBase
             "ID", "Etiqueta", "Dias de Emprestimo", "Cor"
             );
 
-        EntidadeBase[] registros = repositorioCaixa.SelecionarRegistros();
+        List<Caixa> registros = repositorioCaixa.SelecionarRegistros();
 
-        Caixa[] caixasCadastrados = new Caixa[registros.Length];
-
-        for (int i = 0; i < registros.Length; i++)
-            caixasCadastrados[i] = (Caixa)registros[i];
-
-        for (int i = 0; i < caixasCadastrados.Length; i++)
+        foreach(Caixa c in registros)
         {
-            Caixa c = caixasCadastrados[i];
-
-            if (c == null) continue;
-
             Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -20} | {3, -20}",
                 c.Id, c.Etiqueta, c.DiasDeEmprestimo, c.Cor

@@ -1,4 +1,5 @@
-﻿using Trabalho5.AP.Compartilhado;
+﻿using System.Collections;
+using Trabalho5.AP.Compartilhado;
 using Trabalho5.AP.Util;
 
 namespace Trabalho5.AP.ModuloAmigo;
@@ -128,19 +129,10 @@ public class TelaAmigo : TelaBase
             "ID", "Nome", "Telefone", "Responsável"
         );
 
-        EntidadeBase[] registros = repositorioAmigo.SelecionarRegistros();
+        List<EntidadeBase> registros = repositorioAmigo.SelecionarRegistros();
 
-        Amigo[] amigosCadastrados = new Amigo[registros.Length];
-
-        for (int i = 0; i < registros.Length; i++)
-            amigosCadastrados[i] = (Amigo)registros[i];
-
-        for (int i = 0; i < amigosCadastrados.Length; i++)
+        foreach ( Amigo amigos in registros)
         {
-            Amigo amigos = amigosCadastrados[i];
-
-            if (amigos == null) continue;
-
             Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -20} | {3, -20}",
                 amigos.Id, amigos.Nome, amigos.Telefone, amigos.Responsavel
