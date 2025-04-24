@@ -4,7 +4,7 @@ using Trabalho5.AP.ModuloRevista;
 
 namespace Trabalho5.AP.ModuloEmprestimo;
 
-public class RepositorioEmprestimo : RepositorioBase
+public class RepositorioEmprestimo : RepositorioBase<Emprestimo>
 {
     public int QuantidadeEmprestimosAmigo(Amigo amigo)
     {

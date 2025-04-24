@@ -4,7 +4,7 @@ using Trabalho5.AP.Compartilhado;
 
 namespace Trabalho5.AP.ModuloEmprestimo;
 
-public class Emprestimo : EntidadeBase
+public class Emprestimo : EntidadeBase<Emprestimo>
 {
     public Amigo Amigo { get; set; }
     public Revista Revista { get; set; }
@@ -34,7 +34,7 @@ public class Emprestimo : EntidadeBase
 
         return erros;
     }
-    public override void AtualizarRegistro(EntidadeBase registroAtualizado)
+    public override void AtualizarRegistro(Emprestimo registroAtualizado)
     {
         Emprestimo emprestimoAtualizado = (Emprestimo)registroAtualizado;
 

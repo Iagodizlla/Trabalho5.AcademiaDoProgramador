@@ -1,11 +1,11 @@
 ﻿namespace Trabalho5.AP.Compartilhado;
 
-public abstract class RepositorioBase
+public abstract class RepositorioBase<T> where T : EntidadeBase<T>
 {
-    private List<EntidadeBase> registros = new List<EntidadeBase>();
+    private List<T> registros = new List<T>();
     private int contadorIds = 0;
 
-    public void CadastrarRegistro(EntidadeBase novoRegistro)
+    public void CadastrarRegistro(T novoRegistro)
     {
         novoRegistro.Id = ++contadorIds;
 
@@ -38,9 +38,9 @@ public abstract class RepositorioBase
         return novosituacao;
     }
 
-    public bool EditarRegistro(int idRegistro, EntidadeBase registroEditado)
+    public bool EditarRegistro(int idRegistro, T registroEditado)
     {
-        foreach (EntidadeBase e in registros)
+        foreach (T e in registros)
         {
             if (e.Id == idRegistro)
             {
@@ -54,7 +54,7 @@ public abstract class RepositorioBase
 
     public bool ExcluirRegistro(int idRegistro)
     {
-        foreach(EntidadeBase e in registros)
+        foreach(T e in registros)
         {
             if (e.Id == idRegistro)
             {
@@ -66,14 +66,14 @@ public abstract class RepositorioBase
         return false;
     }
 
-    public List<EntidadeBase> SelecionarRegistros()
+    public List<T> SelecionarRegistros()
     {
         return registros;
     }
 
-    public EntidadeBase SelecionarRegistroPorId(int idRegistro)
+    public T SelecionarRegistroPorId(int idRegistro)
     {
-        foreach (EntidadeBase e in registros)
+        foreach (T e in registros)
         {
             if (e.Id == idRegistro)
                 return e;
@@ -82,9 +82,9 @@ public abstract class RepositorioBase
         return null!;
     }
 
-    private void InserirRegistro(EntidadeBase registro)
+    private void InserirRegistro(T registro)
     {
-        foreach (EntidadeBase e in registros)
+        foreach (T e in registros)
         {
             if (e.Id == registro.Id)
             return;

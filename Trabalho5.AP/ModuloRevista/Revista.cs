@@ -3,7 +3,7 @@ using Trabalho5.AP.ModuloCaixa;
 
 namespace Trabalho5.AP.ModuloRevista;
 
-public class Revista : EntidadeBase
+public class Revista : EntidadeBase<Revista>
 {
     public string Titulo { get; set; }
     public string StatusEmprestimo { get; set; }
@@ -39,7 +39,7 @@ public class Revista : EntidadeBase
 
         return erros;
     }
-    public override void AtualizarRegistro(EntidadeBase registroAtualizado)
+    public override void AtualizarRegistro(Revista registroAtualizado)
     {
         Revista revistaAtualizado = (Revista)registroAtualizado;
 

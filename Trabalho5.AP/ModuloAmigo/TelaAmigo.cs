@@ -3,7 +3,7 @@ using Trabalho5.AP.Util;
 
 namespace Trabalho5.AP.ModuloAmigo;
 
-public class TelaAmigo : TelaBase
+public class TelaAmigo : TelaBase<Amigo>
 {
     RepositorioAmigo repositorioAmigo;
     public TelaAmigo(RepositorioAmigo repositorioAmigo) : base("Amigo", repositorioAmigo)
@@ -38,7 +38,7 @@ public class TelaAmigo : TelaBase
 
         Notificador.ExibirMensagem("O registro foi concluído com sucesso!", ConsoleColor.Green);
     }
-    public override EntidadeBase ObterDados()
+    public override Amigo ObterDados()
     {
         Console.WriteLine("Adicionar Amigo");
         Console.Write("Nome: ");
@@ -128,7 +128,7 @@ public class TelaAmigo : TelaBase
             "ID", "Nome", "Telefone", "Responsável"
         );
 
-        List<EntidadeBase> registros = repositorioAmigo.SelecionarRegistros();
+        List<Amigo> registros = repositorioAmigo.SelecionarRegistros();
 
         foreach (Amigo amigos in registros)
         {
