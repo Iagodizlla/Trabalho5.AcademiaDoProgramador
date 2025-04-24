@@ -137,19 +137,9 @@ public class TelaRevista : TelaBase
             "ID", "titulo", "Status", "Numero Edicao", "Ano Publicacao", "Etiqueta Caixa"
             );
 
-        EntidadeBase[] registros = repositorioRevista.SelecionarRegistros();
-
-        Revista[] revistasCadastrados = new Revista[registros.Length];
-
-        for (int i = 0; i < registros.Length; i++)
-            revistasCadastrados[i] = (Revista)registros[i];
-
-        for (int i = 0; i < revistasCadastrados.Length; i++)
+        List<EntidadeBase> registros = repositorioRevista.SelecionarRegistros();
+        foreach (Revista revistas in registros)
         {
-            Revista revistas = revistasCadastrados[i];
-
-            if (revistas == null) continue;
-
             Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -15} | {3, -15} | {4, -20} | {5, -20}",
                 revistas.Id, revistas.Titulo, revistas.StatusEmprestimo, revistas.NumeroEdicao, revistas.AnoPublicacao.Year, revistas.Caixa.Etiqueta
@@ -170,27 +160,18 @@ public class TelaRevista : TelaBase
         Console.WriteLine();
 
         Console.WriteLine(
-            "{0, -6} | {1, -20} | {2, -20} | {3, -20}",
-            "ID", "Etiqueta", "Dias de Emprestimo", "Cor"
+            "{0, -6} | {1, -20} | {2, -20} | {3, -20} | {4, -15}",
+            "ID", "Etiqueta", "Dias de Emprestimo", "Cor", "Quantidade de Revistas"
             );
 
-        EntidadeBase[] registros = repositorioCaixa.SelecionarRegistros();
+        List<EntidadeBase> registros = repositorioCaixa.SelecionarRegistros();
 
-        Caixa[] caixasCadastrados = new Caixa[registros.Length];
-
-        for (int i = 0; i < registros.Length; i++)
-            caixasCadastrados[i] = (Caixa)registros[i];
-
-        for (int i = 0; i < caixasCadastrados.Length; i++)
+        foreach (Caixa caixas in registros)
         {
-            Caixa c = caixasCadastrados[i];
-
-            if (c == null) continue;
-
             Console.WriteLine(
-                "{0, -6} | {1, -20} | {2, -20} | {3, -20}",
-                c.Id, c.Etiqueta, c.DiasDeEmprestimo, c.Cor
-            );
+               "{0, -6} | {1, -20} | {2, -20} | {3, -20} | {4, -15}",
+               caixas.Id, caixas.Etiqueta, caixas.DiasDeEmprestimo, caixas.Cor, caixas.ObterQuantidadeRevistas()
+           );
         }
 
         Console.WriteLine();

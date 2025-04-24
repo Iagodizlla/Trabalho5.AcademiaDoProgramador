@@ -5,7 +5,6 @@ namespace Trabalho5.AP.ModuloRevista;
 
 public class Revista : EntidadeBase
 {
-    public int Id { get; set; }
     public string Titulo { get; set; }
     public string StatusEmprestimo { get; set; }
     public Caixa Caixa { get; set; }

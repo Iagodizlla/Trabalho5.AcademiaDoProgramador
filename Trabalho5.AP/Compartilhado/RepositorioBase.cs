@@ -2,7 +2,7 @@
 
 public abstract class RepositorioBase
 {
-    private EntidadeBase[] registros = new EntidadeBase[100];
+    private List<EntidadeBase> registros = new List<EntidadeBase>();
     private int contadorIds = 0;
 
     public void CadastrarRegistro(EntidadeBase novoRegistro)
@@ -40,15 +40,11 @@ public abstract class RepositorioBase
 
     public bool EditarRegistro(int idRegistro, EntidadeBase registroEditado)
     {
-        for (int i = 0; i < registros.Length; i++)
+        foreach (EntidadeBase e in registros)
         {
-            if (registros[i] == null)
-                continue;
-
-            else if (registros[i].Id == idRegistro)
+            if (e.Id == idRegistro)
             {
-                registros[i].AtualizarRegistro(registroEditado);
-
+                e.AtualizarRegistro(registroEditado);
                 return true;
             }
         }
@@ -58,14 +54,11 @@ public abstract class RepositorioBase
 
     public bool ExcluirRegistro(int idRegistro)
     {
-        for (int i = 0; i < registros.Length; i++)
+        foreach(EntidadeBase e in registros)
         {
-            if (registros[i] == null)
-                continue;
-
-            else if (registros[i].Id == idRegistro)
+            if (e.Id == idRegistro)
             {
-                registros[i] = null!;
+                registros.Remove(e);
                 return true;
             }
         }
@@ -73,21 +66,16 @@ public abstract class RepositorioBase
         return false;
     }
 
-    public EntidadeBase[] SelecionarRegistros()
+    public List<EntidadeBase> SelecionarRegistros()
     {
         return registros;
     }
 
     public EntidadeBase SelecionarRegistroPorId(int idRegistro)
     {
-        for (int i = 0; i < registros.Length; i++)
+        foreach (EntidadeBase e in registros)
         {
-            EntidadeBase e = registros[i];
-
-            if (e == null)
-                continue;
-
-            else if (e.Id == idRegistro)
+            if (e.Id == idRegistro)
                 return e;
         }
 
@@ -96,13 +84,10 @@ public abstract class RepositorioBase
 
     private void InserirRegistro(EntidadeBase registro)
     {
-        for (int i = 0; i < registros.Length; i++)
+        foreach (EntidadeBase e in registros)
         {
-            if (registros[i] == null)
-            {
-                registros[i] = registro;
-                return;
-            }
+            if (e.Id == registro.Id)
+            return;
         }
     }
 }

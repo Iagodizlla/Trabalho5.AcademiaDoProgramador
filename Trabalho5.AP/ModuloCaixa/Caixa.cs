@@ -6,7 +6,6 @@ namespace Trabalho5.AP.ModuloCaixa
 {
     public class Caixa : EntidadeBase
     {
-        public int Id { get; set; }
         public string Etiqueta { get; set; }
         public string Cor { get; set; }
         public int DiasDeEmprestimo { get; set; }

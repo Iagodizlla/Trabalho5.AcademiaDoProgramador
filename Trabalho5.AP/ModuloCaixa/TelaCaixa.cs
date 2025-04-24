@@ -128,19 +128,10 @@ public class TelaCaixa : TelaBase
             "ID", "Etiqueta", "Dias de Emprestimo", "Cor", "Quantidade de Revistas"
             );
 
-        EntidadeBase[] registros = repositorioCaixa.SelecionarRegistros();
+        List<EntidadeBase> registros = repositorioCaixa.SelecionarRegistros();
 
-        Caixa[] caixasCadastrados = new Caixa[registros.Length];
-
-        for (int i = 0; i < registros.Length; i++)
-            caixasCadastrados[i] = (Caixa)registros[i];
-
-        for (int i = 0; i < caixasCadastrados.Length; i++)
+        foreach(Caixa caixas in registros)
         {
-            Caixa caixas = caixasCadastrados[i];
-
-            if (caixas == null) continue;
-
             Console.WriteLine(
                "{0, -6} | {1, -20} | {2, -20} | {3, -20} | {4, -15}",
                caixas.Id, caixas.Etiqueta, caixas.DiasDeEmprestimo, caixas.Cor, caixas.ObterQuantidadeRevistas()
