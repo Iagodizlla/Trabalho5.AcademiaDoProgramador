@@ -2,7 +2,7 @@
 using Trabalho5.AP.ModuloEmprestimo;
 namespace Trabalho5.AP.ModuloAmigo;
 
-public class Amigo : EntidadeBase
+public class Amigo : EntidadeBase<Amigo>
 {
     public int Id { get; set; }
     public string Nome { get; set; }
@@ -16,7 +16,7 @@ public class Amigo : EntidadeBase
         Responsavel = responsavel;
         Emprestimos = new Emprestimo[100];
     }
-    public override void AtualizarRegistro(EntidadeBase registroAtualizado)
+    public override void AtualizarRegistro(Amigo registroAtualizado)
     {
         Amigo amigoAtualizado = (Amigo)registroAtualizado;
 

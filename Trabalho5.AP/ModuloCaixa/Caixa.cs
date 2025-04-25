@@ -4,7 +4,7 @@ using Trabalho5.AP.ModuloRevista;
 
 namespace Trabalho5.AP.ModuloCaixa
 {
-    public class Caixa : EntidadeBase
+    public class Caixa : EntidadeBase<Caixa>
     {
         public int Id { get; set; }
         public string Etiqueta { get; set; }
@@ -51,7 +51,7 @@ namespace Trabalho5.AP.ModuloCaixa
             }
             return contador;
         }
-        public override void AtualizarRegistro(EntidadeBase registroAtualizado)
+        public override void AtualizarRegistro(Caixa registroAtualizado)
         {
             Caixa caixaAtualizado = (Caixa)registroAtualizado;
 

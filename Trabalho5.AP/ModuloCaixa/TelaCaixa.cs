@@ -5,14 +5,14 @@ using System.Collections;
 
 namespace Trabalho5.AP.ModuloCaixa;
 
-public class TelaCaixa : TelaBase
+public class TelaCaixa : TelaBase<Caixa>
 {
     RepositorioCaixa repositorioCaixa;
     public TelaCaixa(RepositorioCaixa repositorioCaixa) : base("Caixa", repositorioCaixa)
     {
         this.repositorioCaixa = repositorioCaixa;
     }
-    public override EntidadeBase ObterDados()
+    public override Caixa ObterDados()
     {
         Console.WriteLine("Adicionar Caixa");
         Console.Write("Etiqueta: ");
@@ -129,9 +129,9 @@ public class TelaCaixa : TelaBase
             "ID", "Etiqueta", "Dias de Emprestimo", "Cor", "Quantidade de Revistas"
             );
 
-        List<EntidadeBase> registros = repositorioCaixa.SelecionarRegistros();
+        List<Caixa> registros = repositorioCaixa.SelecionarRegistros();
 
-        foreach (Caixa caixas in registros)
+        foreach (var caixas in registros)
         {
             Console.WriteLine(
                "{0, -6} | {1, -20} | {2, -20} | {3, -20} | {4, -15}",

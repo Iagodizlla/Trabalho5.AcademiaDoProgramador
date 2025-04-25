@@ -2,6 +2,6 @@
 
 namespace Trabalho5.AP.ModuloAmigo;
 
-public class RepositorioAmigo : RepositorioBase
+public class RepositorioAmigo : RepositorioBase<Amigo>
 {
 }

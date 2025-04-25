@@ -5,7 +5,7 @@ using System.Collections;
 
 namespace Trabalho5.AP.ModuloRevista;
 
-public class TelaRevista : TelaBase
+public class TelaRevista : TelaBase<Revista>
 {
     RepositorioRevista repositorioRevista;
     RepositorioCaixa repositorioCaixa;
@@ -14,7 +14,7 @@ public class TelaRevista : TelaBase
         this.repositorioRevista = repositorioRevista;
         this.repositorioCaixa = repositorioCaixa;
     }
-    public override EntidadeBase ObterDados()
+    public override Revista ObterDados()
     {
         Console.Write("Titulo: ");
         string titulo = Console.ReadLine()!;
@@ -138,9 +138,9 @@ public class TelaRevista : TelaBase
             "ID", "titulo", "Status", "Numero Edicao", "Ano Publicacao", "Etiqueta Caixa"
             );
 
-        List<EntidadeBase> registros = repositorioRevista.SelecionarRegistros();
+        List<Revista> registros = repositorioRevista.SelecionarRegistros();
 
-        foreach(Revista revistas in registros)
+        foreach(var revistas in registros)
         {
             Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -15} | {3, -15} | {4, -20} | {5, -20}",
@@ -166,9 +166,9 @@ public class TelaRevista : TelaBase
             "ID", "Etiqueta", "Dias de Emprestimo", "Cor"
             );
 
-        List<EntidadeBase> registros = repositorioCaixa.SelecionarRegistros();
+        List<Caixa> registros = repositorioCaixa.SelecionarRegistros();
 
-        foreach(Caixa c in registros)
+        foreach(var c in registros)
         {
             Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -20} | {3, -20}",

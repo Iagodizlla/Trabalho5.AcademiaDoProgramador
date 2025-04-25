@@ -7,7 +7,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Trabalho5.AP.ModuloEmprestimo;
 
-public class TelaEmprestimo : TelaBase
+public class TelaEmprestimo : TelaBase<Emprestimo>
 {
     RepositorioEmprestimo repositorioEmprestimo;
     RepositorioAmigo repositorioAmigo;
@@ -18,7 +18,7 @@ public class TelaEmprestimo : TelaBase
         this.repositorioAmigo = repositorioAmigo;
         this.repositorioRevista = repositorioRevista;
     }
-    public override EntidadeBase ObterDados()
+    public override Emprestimo ObterDados()
     {
         ListarAmigos();
         Console.Write("ID: ");
@@ -87,9 +87,9 @@ public class TelaEmprestimo : TelaBase
             "ID", "Nome Amigo", "Titulo Revista", "Situacao"
         );
 
-        List<EntidadeBase> registros = repositorioEmprestimo.SelecionarRegistros();
+        List<Emprestimo> registros = repositorioEmprestimo.SelecionarRegistros();
 
-        foreach(Emprestimo emprestimo in registros)
+        foreach(var emprestimo in registros)
         {
             if (emprestimo.Amigo != amigo) continue;
             Console.WriteLine(
@@ -126,9 +126,9 @@ public class TelaEmprestimo : TelaBase
             "ID", "Nome Amigo", "Titulo Revista", "Situacao", "Data Restante"
             );
 
-        List<EntidadeBase> registros = repositorioEmprestimo.SelecionarRegistros();
+        List<Emprestimo> registros = repositorioEmprestimo.SelecionarRegistros();
 
-        foreach (Emprestimo emprestimo in registros)
+        foreach (var emprestimo in registros)
         {
             if (emprestimo.Situacao != situacaoescolhida && situacaoescolhida != "Geral") continue;
             TimeSpan Data = emprestimo.DataFinal - DateTime.Today;
@@ -167,7 +167,7 @@ public class TelaEmprestimo : TelaBase
 
             return;
         }
-        Emprestimo emprestimoSelecionado = (Emprestimo)repositorioRevista.SelecionarRegistroPorId(idSelecionado);
+        Emprestimo emprestimoSelecionado = repositorioEmprestimo.SelecionarRegistroPorId(idSelecionado);
         Amigo amigo = emprestimoSelecionado.Amigo;
         amigo.RemoverEmprestimo(emprestimoSelecionado);
 
@@ -208,13 +208,13 @@ public class TelaEmprestimo : TelaBase
         Console.Write("Digite o ID do registro que deseja selecionar: ");
         int idSelecionado = Convert.ToInt32(Console.ReadLine());
 
-        Emprestimo emprestimoAntigo = (Emprestimo)repositorioRevista.SelecionarRegistroPorId(idSelecionado);
+        Emprestimo emprestimoAntigo = repositorioEmprestimo.SelecionarRegistroPorId(idSelecionado);
 
         Console.WriteLine();
 
-        Emprestimo emprestimoEditado = (Emprestimo)ObterDados();
+        Emprestimo emprestimoEditado = ObterDados();
 
-        bool conseguiuEditar = repositorioRevista.EditarRegistro(idSelecionado, emprestimoEditado);
+        bool conseguiuEditar = repositorioEmprestimo.EditarRegistro(idSelecionado, emprestimoEditado);
 
         if (!conseguiuEditar)
         {
@@ -234,10 +234,10 @@ public class TelaEmprestimo : TelaBase
             "{0, -6} | {1, -20} | {2, -20} | {3, -20}",
             "ID", "Nome", "Telefone", "Responsável"
             );
-        List<EntidadeBase> registros = repositorioAmigo.SelecionarRegistros();
+        List<Amigo> registros = repositorioAmigo.SelecionarRegistros();
         
 
-        foreach(Amigo amigos in registros)
+        foreach(var amigos in registros)
         {
             Console.WriteLine(
                 "{0, -6} | {1, -20} | {2, -20} | {3, -20}",
@@ -256,9 +256,9 @@ public class TelaEmprestimo : TelaBase
             "{0, -6} | {1, -20} | {2, -15} | {3, -15} | {4, -20} | {5, -20}",
             "ID", "titulo", "Status", "Numero Edicao", "Ano Publicacao", "Etiqueta Caixa"
         );
-        List<EntidadeBase> registros = repositorioRevista.SelecionarRegistros();
+        List<Revista> registros = repositorioRevista.SelecionarRegistros();
 
-        foreach (Revista Revistas in registros)
+        foreach (var Revistas in registros)
         {
             if (Revistas.StatusEmprestimo == "Disponível")
             {
