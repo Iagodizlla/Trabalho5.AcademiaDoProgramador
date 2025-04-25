@@ -138,7 +138,7 @@ public class TelaRevista : TelaBase
             "ID", "titulo", "Status", "Numero Edicao", "Ano Publicacao", "Etiqueta Caixa"
             );
 
-        List<Revista> registros = repositorioRevista.SelecionarRegistros();
+        List<EntidadeBase> registros = repositorioRevista.SelecionarRegistros();
 
         foreach(Revista revistas in registros)
         {
@@ -166,7 +166,7 @@ public class TelaRevista : TelaBase
             "ID", "Etiqueta", "Dias de Emprestimo", "Cor"
             );
 
-        List<Caixa> registros = repositorioCaixa.SelecionarRegistros();
+        List<EntidadeBase> registros = repositorioCaixa.SelecionarRegistros();
 
         foreach(Caixa c in registros)
         {

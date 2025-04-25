@@ -129,7 +129,7 @@ public class TelaCaixa : TelaBase
             "ID", "Etiqueta", "Dias de Emprestimo", "Cor", "Quantidade de Revistas"
             );
 
-        List<Caixa> registros = repositorioCaixa.SelecionarRegistros();
+        List<EntidadeBase> registros = repositorioCaixa.SelecionarRegistros();
 
         foreach (Caixa caixas in registros)
         {

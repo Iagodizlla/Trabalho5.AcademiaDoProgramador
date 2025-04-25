@@ -87,7 +87,7 @@ public class TelaEmprestimo : TelaBase
             "ID", "Nome Amigo", "Titulo Revista", "Situacao"
         );
 
-        ArrayList registros = repositorioEmprestimo.SelecionarRegistros();
+        List<EntidadeBase> registros = repositorioEmprestimo.SelecionarRegistros();
 
         foreach(Emprestimo emprestimo in registros)
         {
@@ -126,7 +126,7 @@ public class TelaEmprestimo : TelaBase
             "ID", "Nome Amigo", "Titulo Revista", "Situacao", "Data Restante"
             );
 
-        List<Emprestimo> registros = repositorioEmprestimo.SelecionarRegistros();
+        List<EntidadeBase> registros = repositorioEmprestimo.SelecionarRegistros();
 
         foreach (Emprestimo emprestimo in registros)
         {
@@ -234,7 +234,7 @@ public class TelaEmprestimo : TelaBase
             "{0, -6} | {1, -20} | {2, -20} | {3, -20}",
             "ID", "Nome", "Telefone", "Responsável"
             );
-        List<Amigo> registros = repositorioAmigo.SelecionarRegistros();
+        List<EntidadeBase> registros = repositorioAmigo.SelecionarRegistros();
         
 
         foreach(Amigo amigos in registros)
@@ -256,7 +256,7 @@ public class TelaEmprestimo : TelaBase
             "{0, -6} | {1, -20} | {2, -15} | {3, -15} | {4, -20} | {5, -20}",
             "ID", "titulo", "Status", "Numero Edicao", "Ano Publicacao", "Etiqueta Caixa"
         );
-        List<Revista> registros = repositorioRevista.SelecionarRegistros();
+        List<EntidadeBase> registros = repositorioRevista.SelecionarRegistros();
 
         foreach (Revista Revistas in registros)
         {
