@@ -6,7 +6,6 @@ namespace Trabalho5.AP.ModuloEmprestimo;
 
 public class Emprestimo : EntidadeBase<Emprestimo>
 {
-    public int Id { get; set; }
     public Amigo Amigo { get; set; }
     public Revista Revista { get; set; }
     public DateTime DataFinal { get; set; }
